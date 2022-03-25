@@ -1,0 +1,19 @@
+<div class="formulario" id="divconfirmar-continuar" >
+    <div class="head-form">
+        <div class="from-encabezado-titulo"><p>Continuar?</p></div>
+    </div>
+
+    <div class="container">
+
+            <div class="row">
+              <p [innerHTML]="str_Mensaje"></p>
+            </div>
+            <div class="col-12">
+                <div class="button-row text-end" id="div-btn-confirmar-continuar">
+                    <button type="button" class="btn btn-outline-success" (click)="Confirmar()">Aceptar</button>
+                    <button type="button" class="btn btn-outline-secondary" (click)="Cancelar()">Cancelar</button>
+                </div>
+            </div>
+      </div>
+
+</div>

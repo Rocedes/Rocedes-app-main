@@ -1,0 +1,40 @@
+#tabla-operation-matrix-data{
+    max-height: 600px;
+}
+
+
+:host ::ng-deep .mat-sort-header-container {
+    display: flex;
+    justify-content: center;
+}
+
+
+#tabla-operation-matrix-data .mat-header-cell{
+    color: #1C394F;
+    font-weight: bold;
+}
+
+
+
+
+#tabla-operation-matrix-data tr td{
+    flex: 0 0 25% !important;
+    min-width: 150px !important;
+    text-align: center;
+    font-size: 12px;
+}
+
+#tabla-operation-matrix-data .mat-column-codigo  {
+    flex: 0 0 25% !important;
+    min-width: 400px !important;
+}
+
+#tabla-operation-matrix-data .mat-column-Operacion  {
+    flex: 0 0 25% !important;
+    min-width: 300px !important;
+}
+
+
+
+
+

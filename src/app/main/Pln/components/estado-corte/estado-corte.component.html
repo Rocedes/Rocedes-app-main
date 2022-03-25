@@ -1,0 +1,130 @@
+
+<div class="franja"><p>ESTADO DE CORTE</p></div>
+<div class="mat-elevation-z8" Id="tabla-planning-estado">
+  
+
+  <div class="container">
+    <div class="row">
+
+      <div class="col-sm-12 col-md-4 col-md-6">
+        <mat-form-field>
+          <mat-label>Find</mat-label>
+          <input appAutofocus matInput (keyup)="filtrar($event)" placeholder="Find">
+        </mat-form-field>
+      </div>
+
+      
+      <div class="col-sm-12 col-md-4 col-md-6">
+        <div class="button-row text-end">
+          <button type="button" class="btn btn-outline-secondary" (click)="LlenarTabla()"><b>Refresh</b> <fa-icon [icon]="['fas', 'search']" class="fa-2x"></fa-icon></button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+    
+
+  <table mat-table  [dataSource]="dataSource"  matSort (matSortChange)="announceSort($event)" >
+
+
+  <ng-container matColumnDef="IdPlanningSwing">
+    <th mat-header-cell *matHeaderCellDef> NO. </th>
+    <td class="block" mat-cell *matCellDef="let element; let j = index" style="color:#1b364c; font-weight: bold;"> {{j+1}} </td>
+  </ng-container>
+
+
+  <ng-container matColumnDef="IdCliente" sticky>
+    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Cliente">
+      Cliente.
+    </th>
+    <td class="block" mat-cell *matCellDef="let element"> {{element.Cliente}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="Modulo">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Modulo">
+        Modulo.
+    </th>
+    <td class="block" mat-cell *matCellDef="let element"> {{element.Modulo}} </td>
+  </ng-container>
+
+
+  <ng-container matColumnDef="Linea">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Linea">
+        Linea.
+    </th>
+    <td class="block" mat-cell *matCellDef="let element"> {{element.Linea}} </td>
+  </ng-container>
+
+
+
+  <ng-container matColumnDef="Ct">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Ct">
+        Ct.
+    </th>
+    <td class="block" mat-cell *matCellDef="let element"> {{element.Ct}} </td>
+  </ng-container>
+
+
+  <ng-container matColumnDef="NotasEspeciales">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by NotasEspeciales">
+        Notas Especiales.
+    </th>
+    <td class="block" mat-cell *matCellDef="let element"> {{element.NotasEspeciales}} </td>
+  </ng-container>
+
+
+
+  <ng-container matColumnDef="Cut" sticky>
+    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Cut">
+        Cut.
+    </th>
+    <td class="block" mat-cell *matCellDef="let element"> {{element.Cut}} </td>
+  </ng-container>
+
+
+  <ng-container matColumnDef="Style" sticky>
+    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Style">
+        Style.
+    </th>
+    <td class="block" mat-cell *matCellDef="let element"> {{element.Style}} </td>
+  </ng-container>
+
+
+
+  <ng-container matColumnDef="Quant">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Quant">
+        Quant.
+    </th>
+    <td class="block" mat-cell *matCellDef="let element"> {{element.Quant}} </td>
+  </ng-container>
+
+  
+  <ng-container matColumnDef="Accepted">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Accepted">
+        Accepted ?.
+    </th>
+    <td mat-cell *matCellDef="let element"> 
+      <mat-checkbox  placeholder="" [(ngModel)]="element.Accepted" [(ngModel)]="element.Accepted"  (click)="Guardar(element, '1')"   color="accent">
+      </mat-checkbox>
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="Rejected">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Rejected">
+        Rejected ?.
+    </th>
+    <td mat-cell *matCellDef="let element"> 
+      <mat-checkbox  placeholder="" [(ngModel)]="element.Rejected" [(ngModel)]="element.Rejected"  (click)="Guardar(element, '2')"   color="accent">
+      </mat-checkbox>
+    </td>
+  </ng-container>
+
+
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr
+  mat-row  [class.demo-row-is-clicked]="clickedRows.has(row)" *matRowDef="let row; columns: displayedColumns;"></tr>
+  
+</table>
+<mat-paginator [pageSizeOptions]="[100, 500, 1000]"  showFirstLastButtons></mat-paginator>
+</div>

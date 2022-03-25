@@ -1,0 +1,15 @@
+#divOperacion-frm-family{
+    width: 400px;
+    margin: auto;
+    background-color: white;
+}
+
+#divOperacion-frm-family-registros{
+    width: 600px;
+    margin: auto;
+    background-color: white;
+}
+
+#tabla-family{
+    max-height: 600px;
+}

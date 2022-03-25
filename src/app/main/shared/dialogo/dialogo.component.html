@@ -1,0 +1,15 @@
+
+    <div class="container dialog-container">
+        <h1 mat-dialog-title class="dialog-title">{{str_Titulo}}</h1>
+        <div class="dialog-content">
+            
+            <div class="container"><p><b>{{str_Caption}}</b>{{str_Error}}</p></div>
+            <div [innerHTML]="str_Mensaje" class="container"></div>
+        </div>
+        
+        <div class="text-end dialog-actions">
+            <button type="button" class="btn btn-outline-secondary" (click)="Cerrar()">Aceptar</button>
+        </div>
+    </div>
+
+    

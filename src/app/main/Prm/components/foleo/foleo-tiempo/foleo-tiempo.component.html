@@ -1,0 +1,224 @@
+<div class="formulario" id="divFoleoTiempo" *ngIf="this.Open">
+
+    <div class="head-form" id="from-encabezado">
+      <div class="from-encabezado-titulo"><p>{{str_Titulo_Tiempo}}</p></div>
+      <div class="from-encabezado-salir"><a href="#" (click)="Cerrar()"><fa-icon [icon]="['fas', 'sign-out-alt']" class="fa-lg" style="color:white"></fa-icon></a></div>
+    </div>
+
+    <div class="container">
+        <form class="form"   [formGroup]="val.ValForm"  novalidate>
+
+
+            <div class="row">
+                <mat-form-field class="col-sm-12" appearance="fill">
+                    <mat-label><b>BUSQUEDA</b></mat-label>
+                    <input appAutofocus  matInput type="text" id="txt_foleo_Estilo" 
+                    formControlName="txt_foleo_Estilo"
+                     placehoder="Ingrese el estilo" 
+                     [matAutocomplete]="auto"
+                    (input)="txt_Foleo_Estilo_onSearchChange($event)" (keydown.enter)="onKeyEnter($event)">
+                    <mat-autocomplete #auto="matAutocomplete" [displayWith]="MostrarSelec">
+                        <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                          {{option.Estilo}}
+                        </mat-option>
+                      </mat-autocomplete>
+                    <mat-icon matSuffix><fa-icon [icon]="['fas', 'search']" class="fa-lg"></fa-icon></mat-icon>
+                    <mat-error *ngIf="val.ValForm.get('txt_foleo_Estilo')?.errors?.Regla=='1'">Componenete es <strong>requerido</strong></mat-error>
+                    
+                </mat-form-field>
+
+
+            </div>
+
+
+            <div class="row">
+
+
+              <mat-form-field class="col-sm-12 col-md-6 col-lg-6">
+                <mat-label><b>CANTIDAD DE BULTOS</b></mat-label>
+                <input matInput type="text" id="txt_Foleo_Cant_Bulto" formControlName="txt_Foleo_Cant_Bulto"  placeholder="" (keydown.enter)="onKeyEnter($event)" (keyup)="calcularMinutos();">
+                <mat-error *ngIf="val.ValForm.get('txt_Foleo_Cant_Bulto')?.errors?.Regla=='1'">Cantidad de bultos es <strong>requerido</strong></mat-error>
+              </mat-form-field>
+
+              <mat-form-field class="col-sm-12 col-md-6 col-lg-6">
+                <mat-label><b>CANTIDAD DE CAPAS</b></mat-label>
+                <input matInput type="text" id="txt_Foleo_Cant_Capas" formControlName="txt_Foleo_Cant_Capas" placeholder="" (keydown.enter)="onKeyEnter($event)" (keyup)="calcularMinutos();">
+                <mat-error *ngIf="val.ValForm.get('txt_Foleo_Cant_Capas')?.errors?.Regla=='1'">Cantidad de capas es <strong>requerido</strong></mat-error>
+              </mat-form-field>
+
+
+        
+
+            </div>
+
+
+
+            
+            <div class="row">
+
+              <mat-form-field class="col-sm-12 col-md-6 col-lg-6">
+                <mat-label><b>CANTIDAD DE PERSONAS EN PARTES PEQUEÑAS</b></mat-label>
+                <input matInput type="text" id="txt_Foleo_Cant_Personas_Pieza_Pequeña" formControlName="txt_Foleo_Cant_Personas_Pieza_Pequeña" placeholder="" (keydown.enter)="onKeyEnter($event)" (keyup)="calcularMinutos();">
+                <mat-error *ngIf="val.ValForm.get('txt_Foleo_Cant_Personas_Pieza_Pequeña')?.errors?.Regla=='1'">Cantidad personas en partes pequeñas es <strong>requerido</strong></mat-error>
+              </mat-form-field>
+              
+              <mat-form-field class="col-sm-12 col-md-6 col-lg-6">
+                <mat-label><b>CANTIDAD DE PERSONAS EN PARTES GRANDES</b></mat-label>
+                <input matInput type="text" id="txt_Foleo_Cant_Personas_Pieza_Grande" formControlName="txt_Foleo_Cant_Personas_Pieza_Grande" placeholder="" (keydown.enter)="onKeyEnter($event)" (keyup)="calcularMinutos();">
+                <mat-error *ngIf="val.ValForm.get('txt_Foleo_Cant_Personas_Pieza_Grande')?.errors?.Regla=='1'">Cantidad personas en partes grandes es <strong>requerido</strong></mat-error>
+              </mat-form-field>
+
+            </div>
+
+
+            <div class="row">
+
+              <mat-form-field class="col-sm-12 col-md-6 col-lg-6">
+                <mat-label><b>FECHA HORA INICIO</b></mat-label>
+                <input [(ngModel)]="FechaInicio" matInput [ngxMatDatetimePicker]="picker" id="txt_Factor_Tiempo_Fecha" formControlName="txt_Factor_Tiempo_Fecha" (dateChange)="calcularMinutos();" (keyup)="calcularMinutos();">
+                <mat-datepicker-toggle matSuffix [for]="$any(picker)"></mat-datepicker-toggle>
+                <ngx-mat-datetime-picker #picker ></ngx-mat-datetime-picker>
+                <mat-error *ngIf="val.ValForm.get('txt_Factor_Tiempo_Fecha')?.errors?.Regla=='1'">Fecha <strong>requerido</strong></mat-error>
+              </mat-form-field>
+  
+         
+              <mat-form-field class="col-sm-12 col-md-6 col-lg-6">
+                <mat-label><b>FECHA HORA FINAL</b></mat-label>
+                <input [(ngModel)]="FechaFinal" matInput [ngxMatDatetimePicker]="picker2" id="txt_Factor_TiempoFinal" formControlName="txt_Factor_TiempoFinal" style="color:blue;" [disabled]="true">
+                <mat-datepicker-toggle matSuffix [for]="$any(picker2)"></mat-datepicker-toggle>
+                <ngx-mat-datetime-picker #picker2 ></ngx-mat-datetime-picker>
+                <mat-error *ngIf="val.ValForm.get('txt_Factor_TiempoFinal')?.errors?.Regla=='1'">Fecha <strong>requerido</strong></mat-error>
+              </mat-form-field>
+  
+
+            </div>
+
+            <div class="row">
+
+
+              
+              <mat-form-field class="col-sm-12 col-md-3 col-lg-3">
+                <mat-label><b>CANTIDAD DE PARTES GRANDES</b></mat-label>
+                <input matInput type="text" id="txt_Foleo_Cant_Grande" formControlName="txt_Foleo_Cant_Grande" style="color: black;">
+              </mat-form-field>
+
+              <mat-form-field class="col-sm-12 col-md-3 col-lg-3">
+                  <mat-label><b>CANTIDAD DE PARTES PEQUEÑAS</b></mat-label>
+                  <input  matInput type="text" id="txt_Foleo_Cant_Pequeña" formControlName="txt_Foleo_Cant_Pequeña" style="color: black;">
+              </mat-form-field>
+
+              <mat-form-field class="col-sm-12 col-md-3 col-lg-3">
+                <mat-label><b>CANTIIDAD DE PARTES  POR PIEZA</b></mat-label>
+                <input  matInput type="text" id="txt_Foleo_Cant_Pieza" formControlName="txt_Foleo_Cant_Pieza"  style="color: black;">
+              </mat-form-field>
+
+
+              <mat-form-field class="col-sm-12 col-md-3 col-lg-3">
+                <mat-label><b>CANTIDAD DE PIEZAS DOBLES</b></mat-label>
+                <input  matInput type="text" id="txt_Foleo_Cant_Pieza_Doble" formControlName="txt_Foleo_Cant_Pieza_Doble" style="color: black;">
+              </mat-form-field>
+            
+          
+            </div>
+
+
+
+
+           
+
+
+
+                <div class="row">
+
+                  <div class="col-sm-6">
+                    <mat-label><b>HORAS: </b><b style="color: blue;">{{num_Horas}}</b></mat-label>
+                  </div>
+
+                  <div class="col-sm-6">
+                    <mat-label><b>MINUTOS: </b><b style="color: blue;">{{num_Minutos}}</b></mat-label>
+                  </div>
+   
+                </div>
+
+        </form>
+    </div>
+
+</div>
+
+
+<div class="container" *ngIf="this.Open">
+  <div class="Lista-Registro" id="divRegistrosFactorFoleoTiempo" >
+    <div class="franja"><p>TIEMPOS DE FOLEO</p></div>
+
+    <div class="container">
+        <div class="row">
+
+            <div class="col-sm-12 col-md-4 col-md-6">
+              <mat-form-field>
+                <mat-label>Buscar</mat-label>
+                <input matInput (keyup)="filtrar($event)" placeholder="buscar">
+              </mat-form-field>
+              <a style="cursor: pointer" (click)="exportar()">
+                <fa-icon [icon]="['fas', 'file-excel']" class="fa-2x" style="color:green"></fa-icon>
+              </a>
+            </div>
+            
+
+            <div class="col-sm-12 col-md-4 col-md-6">
+              <div class="button-row text-end">
+                <button type="button" class="btn btn-outline-secondary" (click)="LLenarTabla()"><b>Refrescar</b> <fa-icon [icon]="['fas', 'search']" class="fa-2x"></fa-icon></button>
+              </div>
+            </div>
+
+
+          </div>
+    </div>
+     
+  
+   
+    <div class="mat-elevation-z8" id="tbl-factor-tiempo">
+
+
+          <table  mat-table [dataSource]="dataSourceFactorFoleo" matSort (matSortChange)="announceSortChange($event)">
+        
+
+            <ng-container matColumnDef="IdProcesoFoleo">
+                <th mat-header-cell *matHeaderCellDef> No. </th>
+                <td mat-cell *matCellDef="let element; let j = index" [ngStyle]="{'font-weight':element.IdProcesoFoleo == -1 ? 'bold' : 'normal'}"> {{j+1}} </td>
+            </ng-container>
+
+
+
+
+          
+          <ng-container matColumnDef="Proceso">
+                <th mat-header-cell class="myHeader" *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Proceso">
+                  Proceso.
+                </th>
+                <td mat-cell class="myCell" *matCellDef="let element" [ngStyle]="{'font-weight':element.IdProcesoFoleo == -1 ? 'bold' : 'normal'}"> {{element.Proceso}} </td>
+          </ng-container>
+
+            
+           
+          <ng-container matColumnDef="Minutos">
+              <th mat-header-cell class="myHeader" *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Minutos">
+                Minutos.
+              </th>
+              <td mat-cell class="myCell" *matCellDef="let element" [ngStyle]="{'font-weight':element.IdProcesoFoleo == -1 ? 'bold' : 'normal'}"> {{element.Minutos | number : '1.4-4'}}  </td>
+          </ng-container>
+
+      
+        
+          <tr mat-header-row *matHeaderRowDef="displayedColumns sticky: true"></tr>
+          <tr
+          mat-row  [class.demo-row-is-clicked]="clickedRows.has(row)" *matRowDef="let row; columns: displayedColumns;"></tr>
+          
+        </table>
+        <mat-paginator [pageSizeOptions]="[25]"  showFirstLastButtons></mat-paginator>
+    </div>
+
+        
+
+   
+</div>
+</div>

@@ -1,0 +1,15 @@
+#divOperacion-frm-codigo-gsd{
+    width: 400px;
+    margin: auto;
+    background-color: white;
+}
+
+#divOperacion-frm-codigo-gsd-registros{
+    width: 600px;
+    margin: auto;
+    background-color: white;
+}
+
+#tabla-codigosGSD{
+    max-height: 600px;
+}

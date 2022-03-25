@@ -1,0 +1,140 @@
+
+::ng-deep #div-subir-excel{
+  width: 400px;
+  margin-bottom: 10px;
+  padding: 5px;
+}
+
+::ng-deep #div-subir-excel div{
+  margin-bottom: 10px;
+  padding: 10px;
+}
+
+  
+::ng-deep #div-subir-excel .btn{
+  margin-left: 5px;
+  margin-bottom: 5px;
+  padding: 10px;
+  min-width: 80px;
+}
+
+::ng-deep .upload-file-select{
+  background-color: #1C394F;
+  border-color: #1C394F;
+  color: white;
+  font-weight: bold;
+}
+
+::ng-deep .upload-file-select:hover {
+  color: white;
+  box-shadow: 0 0 0 0.25rem rgb(28, 57, 79 , 0.5);
+}
+
+::ng-deep #div-subir-excel  > div:nth-child(3){
+  display: flex;
+  justify-content: space-between;
+}
+
+::ng-deep  #div-subir-excel ol{
+  list-style: none;
+ 
+}
+
+
+::ng-deep  #div-subir-excel ol div{
+  display: flex;
+  justify-content: space-between;
+  padding: 5px;
+}
+
+::ng-deep  #div-subir-excel ol div li{
+  text-align: left;
+  overflow: hidden;
+}
+
+::ng-deep  #div-subir-excel ol div a{
+  margin-right: 5px;
+}
+
+
+
+
+
+
+
+/*
+
+::ng-deep #file-upload-excel{
+    width: 100%;
+  }
+
+  ::ng-deep .afu-select-btn {
+    margin-top: 10px;
+    padding: 10px;
+    background-color: #1C394F;
+    border-color: #6C757D;
+    color: white;
+    font-weight: bold;
+  }
+  
+  ::ng-deep .afu-select-btn:hover {
+    background-color: #1C394F;
+    border-color: #6C757D;
+    color: white;
+  }
+  
+  
+  
+  ::ng-deep .afu-reset-btn {
+    margin-top: 10px;
+    padding: 10px;
+    background-color: transparent;
+    border-color: #6C757D;
+    color: #6C757D;
+    font-weight: bold;
+    
+  }
+  
+  ::ng-deep .afu-reset-btn:focus,
+  ::ng-deep.afu-reset-btn:hover,
+  ::ng-deep.afu-reset-btn:active {
+    background-color: #6C757D;
+    border-color: #6C757D;
+    color: white;
+  }
+  
+  
+  ::ng-deep #file-upload-excel .btn-info:focus,
+  ::ng-deep #file-upload-excel .btn-info.focus {
+    box-shadow: 0 0 0 0.25rem rgb(108, 117, 125 , 0.5);
+  }
+
+
+
+  ::ng-deep #div-subir-excel  .disabled,
+  ::ng-deep #div-subir-excel button:disabled,
+  ::ng-deep #div-subir-excel button[disabled]{
+    background-color: #6C757D;
+    border-color: #6C757D;
+    color: white;
+}
+  
+  
+  ::ng-deep .afu-upload-btn {
+    float: right;
+    bottom: 0;
+  }
+*/
+  /*
+  .afu-select-btn {}
+  .afu-reset-btn {}
+  .afu-upload-btn {}
+  .afu-dragndrop-box {}
+  .afu-dragndrop-text {}
+  .afu-constraints-info {}
+  .afu-valid-file {}
+  .afu-invalid-file {}
+  .afu-progress-bar {}
+  .afu-upload-status {}
+  .afu-attach-pin {}
+  */

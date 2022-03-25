@@ -1,0 +1,15 @@
+#divOperacion-frm-cliente{
+    width: 400px;
+    margin: auto;
+    background-color: white;
+}
+
+#divOperacion-frm-cliente-registros{
+    width: 600px;
+    margin: auto;
+    background-color: white;
+}
+
+#tabla-cliente{
+    max-height: 600px;
+}

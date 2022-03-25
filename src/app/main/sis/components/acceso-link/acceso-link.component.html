@@ -1,0 +1,123 @@
+<div class="formulario" id="divAccesoLink" *ngIf="str_frm=='PerfilUsuario'">
+    <div class="head-form" id="from-encabezado">
+        <div class="from-encabezado-titulo"><p>Perfil</p></div>
+        <div class="from-encabezado-salir"><a href="#" (click)="Limpiar()"><fa-icon [icon]="['fas', 'sign-out-alt']" class="fa-lg" style="color:white"></fa-icon></a></div>
+    </div>
+
+      <div class="container">
+          <form class="form" [formGroup]="val.ValForm"  novalidate>
+            <div class="row">
+                <mat-form-field class="col-12" appearance="fill">
+                    <mat-label><b>Usuario.</b></mat-label>
+                    <input appAutofocus  matInput type="text" id="txt_SIS_AccesoUsuario" 
+                    formControlName="txt_SIS_AccesoUsuario"
+                     placehoder="Ingrese el usuario." 
+                     [matAutocomplete]="auto"
+                    (input)="txt_SIS_AccesoUsuario_onSearchChange($event)"
+                    (keydown.enter)="txt_SIS_AccesoUsuario_onKeyEnter($event)">
+                    <mat-autocomplete #auto="matAutocomplete" [displayWith]="MostrarUsuarioSelec">
+                        <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                          {{option.Login}}
+                        </mat-option>
+                      </mat-autocomplete>
+                    <mat-icon matSuffix><fa-icon [icon]="['fas', 'search']" class="fa-lg"></fa-icon></mat-icon>
+                    <mat-error *ngIf="val.ValForm.get('txt_SIS_AccesoUsuario')?.errors?.Regla=='1'">Usuario es <strong>requerido</strong></mat-error>
+                </mat-form-field>
+            </div>
+
+            <div class="row">
+              <mat-label><b>{{str_Nombre}}</b></mat-label>
+            </div>
+
+
+
+            
+          </form>
+      </div>
+
+</div>
+
+
+
+<div class="Lista-Registro" id="divRegistrosPerfilesUsuario" *ngIf="str_Login != ''">
+  <div class="franja"><p>Perfiltes</p></div>
+
+  
+    <div class="row">
+
+      <div class="col-sm-12 col-md-4 col-md-6">
+        <mat-form-field>
+          <mat-label>Buscar</mat-label>
+          <input matInput (keyup)="filtrar($event)" placeholder="buscar">
+        </mat-form-field>
+      </div>
+      
+
+      <div class="col-sm-12 col-md-4 col-md-6">
+        <div class="button-row text-end">
+          <button type="button" class="btn btn-outline-secondary" (click)="LlenarTabla()"><b>Refrescar</b> <fa-icon [icon]="['fas', 'search']" class="fa-2x"></fa-icon></button>
+        </div>
+      </div>
+
+
+    </div>
+
+ 
+  <div class="mat-elevation-z8">
+
+
+        <table mat-table [dataSource]="dataSourceLink" matSort (matSortChange)="announceSortChange($event)">
+      
+
+
+          <ng-container matColumnDef="EsMenu">
+              <th mat-header-cell  *matHeaderCellDef>
+                  No.
+              </th>
+              <td mat-cell  *matCellDef="let element; let j = index;"> 
+                  {{j+1}}
+              </td>
+          </ng-container>
+
+          
+          <ng-container matColumnDef="NombreEsquema">
+            <th mat-header-cell class="myHeader" *matHeaderCellDef mat-sort-header sortActionDescription="Sort by NombreEsquema">
+              Esquema.
+            </th>
+            <td mat-cell class="myCell" *matCellDef="let element" [ngStyle]="{'font-weight':element.EsMenu ? 'bold' : 'normal'}"> {{element.NombreEsquema}} </td>
+        </ng-container>
+
+
+
+      <ng-container matColumnDef="NombreLink">
+        <th mat-header-cell class="myHeader" *matHeaderCellDef mat-sort-header sortActionDescription="Sort by NombreLink">
+          Acceso.
+        </th>
+        <td mat-cell class="myCell" *matCellDef="let element" [ngStyle]="{'font-weight':element.EsMenu ? 'bold' : 'normal'}"> {{element.NombreLink}} </td>
+    </ng-container>
+
+      <ng-container matColumnDef="Activo">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Activo">
+          Seleccionar.
+        </th>
+        <td mat-cell *matCellDef="let element" [ngStyle]="{'font-weight':element.EsMenu ? 'bold' : 'normal'}"> 
+          <mat-checkbox  placeholder="" [(ngModel)]="element.Activo" [(ngModel)]="element.Activo"  (click)="Guardar(element);"   color="accent">
+          </mat-checkbox>
+        </td>
+      </ng-container>
+         
+
+    
+      
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr
+        mat-row  [class.demo-row-is-clicked]="clickedRows.has(row)" *matRowDef="let row; columns: displayedColumns;"></tr>
+        
+      </table>
+      <mat-paginator [pageSizeOptions]="[100, 1000]"  showFirstLastButtons></mat-paginator>
+  </div>
+
+      
+
+ 
+</div>

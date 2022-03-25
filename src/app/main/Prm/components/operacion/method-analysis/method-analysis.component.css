@@ -1,0 +1,75 @@
+  #tabla-method-analisys
+  {
+    max-height: 525px;
+  }
+
+  button{
+    width: 130px;
+  }
+
+  #tabla-parametros-method-analisys
+  {
+    max-height: 600px;
+  }
+
+  :host ::ng-deep #tabla-parametros-method-analisys input, :host ::ng-deep #tabla-parametros-method-analisys td{
+    font-size: 12px;
+  }
+
+  :host ::ng-deep   #tabla-method-analisys input, :host ::ng-deep   #tabla-method-analisys td{
+    font-size: 12px;
+  }
+
+
+
+  .myHeader{
+      text-align: center;
+  }
+
+
+  :host ::ng-deep .col-method-analisys-search {
+    width: 350px;
+  }
+
+  :host ::ng-deep .col-method-analisys-codigo {
+    width: 80px;
+    padding-left: 2.5px;
+    padding-right: 2.5px;
+    margin-left: 2.5px;
+    margin-right: 2.5px;
+
+  }
+  
+
+  :host ::ng-deep .col-method-analisys-descripcion {
+    width: 500px;
+    padding-left: 2.5px;
+    padding-right: 2.5px;
+    margin-left: 5px;
+    margin-right: 5px;
+    font-weight: bold;
+  }
+
+  :host ::ng-deep .col-method-analisys-num {
+    max-width: 50px;
+    padding-left: 2.5px;
+    padding-right: 2.5px;
+    margin-left: 2.5px;
+    margin-right: 2.5px;
+    text-align: right;
+  }
+
+  :host ::ng-deep .myHeader2, .col-method-analisys-resultado {
+    max-width: 100px;
+    padding-left: 2.5px;
+    padding-right: 2.5px;
+    margin-left: 5px;
+    margin-right: 5px;
+    text-align: right;
+  }
+
+  
+  :host ::ng-deep table a {
+    margin-left: 50px;
+  }
+  

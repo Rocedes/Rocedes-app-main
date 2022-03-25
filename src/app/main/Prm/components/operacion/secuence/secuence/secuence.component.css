@@ -1,0 +1,15 @@
+#divOperacion-frm-secuence{
+    width: 400px;
+    margin: auto;
+    background-color: white;
+}
+
+#divOperacion-frm-secuence-registros{
+    width: 600px;
+    margin: auto;
+    background-color: white;
+}
+
+#tabla-secuence{
+    max-height: 600px;
+}

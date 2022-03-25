@@ -1,0 +1,508 @@
+<ng-container *ngIf="str_from == 'BundleBoxing'; then ngBundleBoxing_Seleccion; else SegundoCont"></ng-container>
+
+<ng-template #SegundoCont>
+    <ng-container *ngIf="str_from == 'frmBundleBoxing_Escanner';  then ngBundleBoxing_Escanner; else TercerCont"></ng-container>
+</ng-template>
+
+
+<ng-template #TercerCont>
+    <ng-container *ngIf="str_from == 'frmBundleBoxing_Saco';  then ngBundleBoxing_Saco; else CuartoCont"></ng-container>
+</ng-template>
+
+<ng-template #CuartoCont>
+    <ng-container *ngIf="str_from == 'frmBundleBoxing_CrearSerial';  then ngBundleBoxing_CrearSerial; else QuintoCont"></ng-container>
+</ng-template>
+
+<ng-template #QuintoCont></ng-template>
+
+
+
+
+<ng-template #ngBundleBoxing_Seleccion>
+    <div class="formulario" id="divInicioBundleBoxing">
+        <div class="head-form" id="from-encabezado">
+            <div class="from-encabezado-titulo"><p>Seleccion Corte</p></div>
+            <div class="from-encabezado-salir"><a href="#" (click)="Cerrar('')"><fa-icon [icon]="['fas', 'sign-out-alt']" class="fa-lg" style="color:white"></fa-icon></a></div>
+        </div>
+    
+          <div class="container">
+              <form class="form" [formGroup]="valSeleccion.ValForm"  novalidate>
+                <div class="row">
+                    <mat-form-field class="col-12" appearance="fill">
+                        <mat-label><b>Corte.</b></mat-label>
+                        <input appAutofocus  matInput type="text" id="txtBox_SeleccionCorte" 
+                        formControlName="txtBox_SeleccionCorte"
+                         placehoder="Ingrese No. Corte" 
+                         [matAutocomplete]="auto"
+                        (input)="txtBox_SeleccionCorte_onSearchChange($event)">
+                        <mat-autocomplete #auto="matAutocomplete" [displayWith]="MostrarCorteSelec">
+                            <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                              {{option.Corte}}
+                            </mat-option>
+                          </mat-autocomplete>
+                        <mat-icon matSuffix><fa-icon [icon]="['fas', 'search']" class="fa-lg"></fa-icon></mat-icon>
+                        <mat-error *ngIf="valSeleccion.ValForm.get('txtBox_SeleccionCorte')?.errors?.Regla=='1'">No Corte <strong>requerido</strong></mat-error>
+                    </mat-form-field>
+                    <span>Ejemplo: <b>MP350028-1</b></span>
+                </div>
+
+
+                <div class="row">
+                    <div class="col-6">
+                        <button type="button" id="btnBoxingEscanner" class="btn  sleccion-escanner"  [disabled]="valSeleccion.ValForm.invalid"  (click)="Escanner()">Escanner</button>
+                    </div>
+                    <div class="col-6" *ngIf="!EsComplemento">
+                        <button type="button" id="btnBoxingCrearSerial" class="btn  sleccion-crearserial" [disabled]="valSeleccion.ValForm.invalid"   (click)="CrearSerial()">Crear Serial</button>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="button-row text-end">
+                            <button type="button" class="btn btn-outline-secondary"  (click)="Cerrar('')">Cerrar</button>
+                        </div>
+                    </div>
+                </div>
+                
+              </form>
+          </div>
+    </div>
+</ng-template>
+
+
+<ng-template #ngBundleBoxing_Escanner>
+    <div class="formulario" id="divBundleBoxing">
+        <div class="head-form" id="from-encabezado">
+            <div class="from-encabezado-titulo"><p>Bundle Boxing</p></div>
+            <div class="from-encabezado-salir"><a href="#" (click)="Cerrar('frmBundleBoxing_Escanner')"><fa-icon [icon]="['fas', 'sign-out-alt']" class="fa-lg" style="color:white"></fa-icon></a></div>
+          </div>
+    
+          <div class="container">
+              <form class="form" [formGroup]="val.ValForm"  novalidate>
+                <div class="row">
+                    <div class="col-sm-6 col-md-6 col-lg-6">
+                        <!--<mat-icon matPrefix><fa-icon [icon]="['fas', 'search']" class="fa-lg"></fa-icon></mat-icon>-->
+                        <label>Corte No. <b>{{str_Corte}}</b></label>
+                        <label>Estilo. <b>{{str_Estilo}}</b></label>
+                    </div>
+
+                    <mat-form-field class="col-sm-6 col-md-4 col-lg-4 offset-md-2 offset-lg-2">
+                        <mat-label>{{str_Label_Mesa}}</mat-label>
+                        <mat-select appAutofocus [(value)]="str_Mesa" id="txtBox_Mesa" formControlName="txtBox_Mesa" (keydown.enter)="Empacar()">
+                            <mat-option *ngIf="EsComplemento" value="0">Maquina Cortadora</mat-option>
+                            <mat-option *ngIf="!EsComplemento" value="1">Mesa 1</mat-option>
+                            <mat-option *ngIf="!EsComplemento" value="2">Mesa 2</mat-option>
+                            <mat-option *ngIf="!EsComplemento" value="3">Mesa 3</mat-option>
+                            <mat-option *ngIf="!EsComplemento" value="4">Mesa 4</mat-option>
+                            <mat-option *ngIf="!EsComplemento" value="5">Mesa 5</mat-option>
+                            <mat-option *ngIf="!EsComplemento" value="6">Mesa 6</mat-option>
+                            <mat-option *ngIf="!EsComplemento" value="7">Mesa 7</mat-option>
+                            <mat-option *ngIf="!EsComplemento" value="8">Mesa 8</mat-option>
+                            <mat-option *ngIf="!EsComplemento" value="9">Mesa 9</mat-option>
+                            <mat-option *ngIf="!EsComplemento" value="10">Mesa 10</mat-option>
+                            <mat-option *ngIf="!EsComplemento" value="11">Mesa 11</mat-option>
+                            <mat-option *ngIf="!EsComplemento" value="12">Mesa 12</mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="val.ValForm.get('txtBox_Mesa')?.errors?.Regla=='1'">{{str_Label_Mesa}} es <strong>requerido</strong></mat-error>
+                      </mat-form-field>
+
+              
+
+
+                </div>
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="button-row text-end" *ngIf="!bol_IniciarEmpaque" disabled="bol_Load">
+                            <button type="button" id="btnBoxin_Empacar" class="btn btn-outline-secondary"  (click)="Empacar()">Iniciar Empaque</button>
+                        </div>
+                    </div>
+                    <div class="spinner-wrapper" *ngIf="bol_LoadCorte">
+                        <mat-progress-spinner class="example-margin"  color="primary"mode="indeterminate" [diameter]="30"></mat-progress-spinner>
+                    </div>
+                </div>
+                
+                
+                
+
+              </form>
+          </div>
+    </div>
+
+
+    <div class="Lista-Registro" id="divRegistrosSerialBoxing">
+        <div class="franja"><p>Registros de Piezas Escaneadas</p><p style="color: green;">{{str_Titulo_Saco}}</p></div>
+
+        <div class="container">
+            <div class="flex-container" *ngIf="bol_IniciarEmpaque">
+                <div>
+                    <button type="button" id="btnBoxin_CerrarEmpaque" class="btn btn-outline-secondary"  (click)="CerrarEmpaque()">Cerrar Empaque</button>
+                </div>
+    
+                <!--<div>
+                    <button *ngIf="!bol_TerminarEmpaque" type="button" id="btnBoxin_TerminarEmpaque" class="btn btn-outline-secondary"  (click)="TerminarEmpaque()">Finalizar</button>
+                </div>-->
+    
+                <div>
+                    <button *ngIf="!bol_AbrirSaco && dataSourceBoxin.data.length > 0 && !EsComplemento" type="button" id="btnBoxin_Saco" class="btn btn-outline-secondary"  (click)="GuardarSaco('Crear')">Crear Saco</button>
+                </div>
+    
+                <div>
+                    <button *ngIf="dataSourceBoxin.data.length > 0 && !EsComplemento" type="button" id="btnBoxin_AbrirSaco" class="btn btn-outline-secondary"  (click)="AbrirSaco()">Abrir Saco</button>
+                </div>
+
+                <div>
+
+                    <button *ngIf="bol_AbrirSaco && !EsComplemento" type="button" id="btnBoxin_AbrirSaco" class="btn btn-outline-secondary"  (click)="ImprimirSaco(); modal1.show();">Imprimir <fa-icon [icon]="['fas', 'print']" class="fa-lg" style="color:green"></fa-icon></button>
+                </div>
+             </div>
+        </div>
+
+        
+
+          <div class="container">
+            <div class="row">
+
+                <div class="col-12">
+                    <mat-form-field class="col-sm-12 col-md-4 col-md-6" *ngIf="bol_IniciarEmpaque">
+                        <mat-label>Escanear</mat-label>
+                        <input matInput type="text" id="txtBox_EscanSerial"  placeholder="Escanear" (keydown.enter)="txtBox_EscanSerial_KeyEnter($event)"  appAutofocus>
+                        <mat-icon matSuffix><fa-icon [icon]="['fas', 'barcode']" class="fa-lg" *ngIf="!bol_Load else spinBar"></fa-icon></mat-icon>
+                    </mat-form-field>
+                    <mat-form-field [ngClass]="bol_IniciarEmpaque ? 'col-ms-12 col-md-4 col-lg-4 offset-md-2 offset-lg-2' : 'col-12'" ngclass="">
+                        <mat-label>Buscar</mat-label>
+                        <input matInput (keyup)="filtrar($event)" placeholder="buscar">
+                    </mat-form-field>
+                </div>
+                
+    
+            </div>
+          </div>
+
+       
+        
+
+      
+
+        <div class="mat-elevation-z8" id="tbl-bundle-boxing-escanner">
+            <table mat-table [dataSource] = "dataSourceBoxin" matSort (matSortChange)="announceSortChange($event)" class="mat-elevation-z8">
+
+            <ng-container matColumnDef="cIndex">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by cIndex">
+                No.
+                </th>
+                <td mat-cell *matCellDef="let element"> {{element.cIndex}} </td>
+            </ng-container>
+
+
+            <ng-container matColumnDef="cSerial">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by cSerial">
+                Serial.
+                </th>
+                <td mat-cell *matCellDef="let element"> {{element.cSerial}} </td>
+            </ng-container>
+
+
+            <ng-container matColumnDef="cNomPieza">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by cNomPieza">
+                Pieza.
+                </th>
+                <td mat-cell *matCellDef="let element"> {{element.cNomPieza}} </td>
+            </ng-container>
+
+
+            <ng-container matColumnDef="cTalla">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by cTalla">
+                Talla.
+                </th>
+                <td mat-cell *matCellDef="let element"> {{element.cTalla}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="cNoBulto">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by cNoBulto">
+                Bulto / Rollo.
+                </th>
+                <td mat-cell *matCellDef="let element"> {{element.cNoBulto}} </td>
+            </ng-container>
+
+
+            <ng-container matColumnDef="cCapaje">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by cCapaje">
+                Capaje.
+                </th>
+                <td mat-cell *matCellDef="let element"> {{element.cCapaje}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="cYarda">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by cYarda">
+                Yardaje.
+                </th>
+                <td mat-cell *matCellDef="let element"> {{element.cYarda}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="cNoSaco">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by cNoSaco">
+                Saco.
+                </th>
+                <td mat-cell *matCellDef="let element"> {{element.cNoSaco}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="cMesa">
+                <th mat-header-cell *matHeaderCellDef>
+                    No Mesa
+                </th>
+                <td mat-cell *matCellDef="let element"> {{element.cMesa}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="cAccion">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by cAccion">
+                </th>
+                <td mat-cell *matCellDef="let element" >
+                  <!--<a href="#"><fa-icon [icon]="['fas', 'minus-square']" class="fa-2x" [ngStyle]="{'color': element.cEscaneado? 'green' : 'red'}"></fa-icon></a>-->
+                  <a href="#" *ngIf="element.cEscaneado"><fa-icon [icon]="['fas', 'check']" class="fa-2x" style="color:green"></fa-icon></a>
+                  <a href="#" *ngIf="!element.cEscaneado"><fa-icon [icon]="['fas', 'minus-square']" class="fa-2x" style="color:gray" ></fa-icon></a>
+                 
+                </td>
+              </ng-container>
+
+
+
+              <ng-container matColumnDef="cCorte">
+                <th mat-header-cell *matHeaderCellDef>No Corte</th>
+                <td mat-cell *matCellDef="let element"> {{element.cCorte}} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="cOper">
+                <th mat-header-cell *matHeaderCellDef>Operacion</th>
+                <td mat-cell *matCellDef="let element"> {{element.cOper}} </td>
+              </ng-container>
+              
+
+             
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr
+            mat-row  [class.demo-row-is-clicked]="clickedRows.has(row)" *matRowDef="let row; columns: displayedColumns;"></tr>
+
+            </table>
+            <mat-paginator [pageSizeOptions]="[25, 50, 100]"  showFirstLastButtons></mat-paginator>
+        </div>
+
+    </div>
+</ng-template>
+
+
+
+<ng-template #ngBundleBoxing_Saco>
+    <div class="formulario" id="divAbrirSaco">
+        <div class="head-form" id="from-encabezado">
+            <div class="from-encabezado-titulo"><p>Abrir Saco</p></div>
+            <div class="from-encabezado-salir"><a href="#" (click)="Cerrar('')"><fa-icon [icon]="['fas', 'sign-out-alt']" class="fa-lg" style="color:white"></fa-icon></a></div>
+        </div>
+        <div class="container">
+            <form class="from" [formGroup]="valSaco.ValForm"  novalidate>
+                <div class="row">
+                    <div class="col-12">
+                        <mat-form-field class="col-12">
+                            <mat-label>Saco #</mat-label>
+                            <input appAutofocus matInput type="text" id="txtBox_Saco" formControlName="txtBox_Saco" placeholder="Ingrese # Saco" (keydown.enter)="BuscarSaco()">
+                            <mat-error *ngIf="valSaco.ValForm.get('txtBox_Saco')?.errors?.Regla=='1'">Saco # es <strong>requerido</strong></mat-error>
+                            <mat-error *ngIf="valSaco.ValForm.get('txtBox_Saco')?.errors?.Regla=='2'"> Solo se permiten numeros mayor a: <strong>0</strong></mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-12">
+                        <div class="button-row text-end">
+                            <button type="button" class="btn btn-outline-success" (click)="BuscarSaco()">Abrir</button>
+                            <button type="button" class="btn btn-outline-secondary" (click)="CerrarDialogoSaco()">Cerrar</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</ng-template>
+
+
+<ng-template #ngBundleBoxing_CrearSerial>
+    <div class="formulario" id="divBundleBoxing_CrearSerial">
+        <div class="head-form" id="from-encabezado">
+            <div class="from-encabezado-titulo"><p>Crear Serial</p></div>
+            <div class="from-encabezado-salir"><a href="#" (click)="Cerrar('frmBundleBoxing_CrearSerial')"><fa-icon [icon]="['fas', 'sign-out-alt']" class="fa-lg" style="color:white"></fa-icon></a></div>
+          </div>
+    
+          <div class="container">
+              <form class="form" [formGroup]="valSerial.ValForm"  novalidate>
+
+                <div class="row">
+                    <div class="col-sm-5 col-md-5 col-lg-4">
+                        <!--<mat-icon matPrefix><fa-icon [icon]="['fas', 'search']" class="fa-lg"></fa-icon></mat-icon>-->
+                        <label>Corte. <b>{{str_Corte}}</b></label>
+                    </div>
+
+                    <div class="col-sm-5 col-md-5 col-lg-4">
+                        <!--<mat-icon matPrefix><fa-icon [icon]="['fas', 'search']" class="fa-lg"></fa-icon></mat-icon>-->
+                        <label>Estilo. <b>{{str_Estilo}}</b></label>
+                    </div>
+
+                    <!--<div class="col-sm-2 col-md-2 col-lg-4">
+                        <mat-checkbox  formControlName="checkBox_Saco" [(ngModel)]="EnSaco" (click)="CheckChange();"   color="accent">
+                            <b>En Saco?</b>
+                         </mat-checkbox>
+                    </div>-->
+
+                    
+                   
+
+                </div>
+
+                <div class="row">
+                    <mat-form-field class="col-sm-12">
+                        <mat-label><b>Nombre.</b></mat-label>
+                        <input appAutofocus matInput type="text" id="txtBox_Nombre" formControlName="txtBox_Nombre" placeholder="Ingrese el nombre de la pieza." (keydown.enter)="onKeyEnter($event)">
+                        <mat-error *ngIf="valSerial.ValForm.get('txtBox_Nombre')?.errors?.Regla=='1'">Nombre es <strong>requerido</strong></mat-error>
+                    </mat-form-field>
+
+                </div>
+
+                <div class="row">
+
+                    
+                    <mat-form-field class="col-sm-12 col-md-6 col-lg-6">
+                        <mat-label>Presentacion.</mat-label>
+                        <mat-select  [(value)]="opcion_presentacion" id="selectBox_Presentacion" formControlName="selectBox_Presentacion" (selectionChange)="selectBox_select()" (keydown.enter)="onKeyEnter($event)">
+                          <mat-option  *ngFor="let p of IPresentacion" [value]="p.IdPresentacionSerial">{{p.Presentacion}}</mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="valSerial.ValForm.get('selectBox_Presentacion')?.errors?.Regla=='1'">Presentacion es <strong>requerido</strong></mat-error>
+                    </mat-form-field>
+
+
+                    <mat-form-field class="col-sm-12 col-md-6 col-lg-6">
+                        <mat-label>Material.</mat-label>
+                        <mat-select  [(value)]="opcion_material" id="SelectBox_Material" formControlName="SelectBox_Material" (keydown.enter)="onKeyEnter($event)">
+                            <mat-option  *ngFor="let p of IMaterial" [value]="p.IdMaterial">{{p.Material}}</mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="valSerial.ValForm.get('SelectBox_Material')?.errors?.Regla=='1'">Material es <strong>requerido</strong></mat-error>
+                    </mat-form-field>
+
+                </div>
+
+                <div class="row">
+
+                    
+                    <mat-form-field class="col-sm-12 col-md-6 col-lg-6">
+                        <mat-label>Cantidad.</mat-label>
+                        <input matInput type="number"  id="spinBox_Cantidad" formControlName="spinBox_Cantidad" placeholder="" min="1" (keydown.enter)="onKeyEnter($event)">
+                        <mat-error *ngIf="valSerial.ValForm.get('spinBox_Cantidad')?.errors?.Regla=='1'">Cantidad es <strong>requerido</strong></mat-error>
+                    </mat-form-field>
+                    
+                    <mat-form-field class="col-sm-12 col-md-6 col-lg-6">
+                        <mat-label>{{str_Label_Capaje}}</mat-label>
+                        <input matInput type="number"  id="spinBox_Capaje" formControlName="spinBox_Capaje" placeholder="" min="1" (keydown.enter)="onKeyEnter($event)">
+                        <mat-error *ngIf="valSerial.ValForm.get('spinBox_Capaje')?.errors?.Regla=='1'">{{str_Label_Capaje}} es <strong>requerido</strong></mat-error>
+                    </mat-form-field>
+
+  
+                </div>
+
+                <div class="row">
+                    <div fxLayout="column">
+                        <ngx-barcode [bc-value]="str_CodeBar"  [bc-display-value]="true" bc-element-type="svg" bc-format="UPC" bc-font="monospace"  bc-text-align ="center"  [bc-font-size]="13" [bc-width]="2" [bc-height]="100" bc-background="transparent"></ngx-barcode>
+                    </div>
+
+                </div>
+
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="button-row text-end">
+                            <button type="button" id="btnBoxin_CrearSerial" class="btn btn-outline-success" [disabled]="valSerial.ValForm.invalid" (click)="GenerarSerial(); modal1.show();">GENERAR  <fa-icon [icon]="['fas', 'print']" class="fa-2x"></fa-icon></button>
+                        </div>
+                    </div>
+                </div>
+                
+              </form>
+          </div>
+    </div>
+</ng-template>
+
+
+
+<ng-container *ngIf="str_from == 'frmBundleBoxing_Mesa'">
+    <div class="formulario" id="divMesa">
+        <div class="head-form" id="from-encabezado">
+            <div class="from-encabezado-titulo"><p>Mesa</p></div>
+            <div class="from-encabezado-salir"><a href="#" (click)="Cerrar('')"><fa-icon [icon]="['fas', 'sign-out-alt']" class="fa-lg" style="color:white"></fa-icon></a></div>
+        </div>
+        <div class="container">
+            <form class="from" [formGroup]="valMesa.ValForm"  novalidate>
+                <div class="row">
+                    <div class="col-12">
+                        <mat-form-field class="col-12">
+                            <mat-label>Mesa</mat-label>
+                        <mat-select appAutofocus [(value)]="str_Mesa" id="txtBox_Mesa_Serial" formControlName="txtBox_Mesa_Serial" (keydown.enter)="Empacar()">
+                            <mat-option  value="1">Mesa 1</mat-option>
+                            <mat-option  value="2">Mesa 2</mat-option>
+                            <mat-option  value="3">Mesa 3</mat-option>
+                            <mat-option  value="4">Mesa 4</mat-option>
+                            <mat-option  value="5">Mesa 5</mat-option>
+                            <mat-option  value="6">Mesa 6</mat-option>
+                            <mat-option  value="7">Mesa 7</mat-option>
+                            <mat-option  value="8">Mesa 8</mat-option>
+                            <mat-option  value="9">Mesa 9</mat-option>
+                            <mat-option  value="10">Mesa 10</mat-option>
+                            <mat-option  value="11">Mesa 11</mat-option>
+                            <mat-option  value="12">Mesa 12</mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="valMesa.ValForm.get('txtBox_Mesa_Serial')?.errors?.Regla=='1'">Mesa es <strong>requerido</strong></mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-12">
+                        <div class="button-row text-end">
+                            <button type="button" class="btn btn-outline-success" (click)="SeleccionarMesa()">Aceptar</button>
+                            <button type="button" class="btn btn-outline-secondary" (click)="CerrarDialogoMesa()">Cerrar</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+</ng-container>
+
+
+
+<!-----------------------------------------------------SPINNER---------------------------------------------------------------->
+
+<ng-template #spinBar>
+    <div style="text-align: right;">
+        <div class="spinner-border text-primary" role="status" >
+            <span class="sr-only">Cargando...</span>
+          </div>
+    </div>
+</ng-template>
+
+
+
+
+
+
+<app-modal #modal1 class="panel-demo1" [maximizable]="true" [backdrop]="true">
+    <ng-container class="app-modal-header"></ng-container>
+    <ng-container class="app-modal-body">
+        <app-report-viewer></app-report-viewer>
+    </ng-container>
+    <ng-container class="app-modal-footer">
+        <div class="button-row text-end">
+            <button type="button" class="dt-button dt-rocedes" (click)="modal1.hide()">
+                <fa-icon [icon]="['fas', 'broom']" class="fa-lg"></fa-icon> Close
+            </button>
+        </div>
+    </ng-container>
+</app-modal>
+
+
+
+
+
+   
+
+

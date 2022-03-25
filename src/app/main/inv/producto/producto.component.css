@@ -1,0 +1,15 @@
+#divOperacion-frm-producto{
+    width: 600px;
+    margin: auto;
+    background-color: white;
+}
+
+#divOperacion-frm-producto-registros{
+    width: 600px;
+    margin: auto;
+    background-color: white;
+}
+
+#tabla-producto{
+    max-height: 600px;
+}

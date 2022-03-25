@@ -1,0 +1,106 @@
+
+<div class="formulario" id="divFactorCorteTiempo" *ngIf="this.Open">
+
+    <div class="head-form" id="from-encabezado">
+      <div class="from-encabezado-titulo"><p>TIEMPO DE CORTE</p></div>
+      <div class="from-encabezado-salir"><a href="#" (click)="Cerrar()"><fa-icon [icon]="['fas', 'sign-out-alt']" class="fa-lg" style="color:white"></fa-icon></a></div>
+    </div>
+
+    <div class="container">
+        <form class="form"   [formGroup]="val.ValForm"  novalidate>
+
+
+            <div class="row">
+                <mat-form-field class="col-sm-12" appearance="fill">
+                    <mat-label><b>BUSQUEDA</b></mat-label>
+                    <input appAutofocus  matInput type="text" id="txt_Factor_Tiempo_Componente" 
+                    formControlName="txt_Factor_Tiempo_Componente"
+                     placehoder="Ingrese el componente" 
+                     [matAutocomplete]="auto"
+                    (input)="txt_Factor_Tiempo_Componente_onSearchChange($event)" (keydown.enter)="onKeyEnter($event)">
+                    <mat-autocomplete #auto="matAutocomplete" [displayWith]="MostrarComponenteSelec">
+                        <mat-option *ngFor="let option of filteredOptionsComponente | async" [value]="option">
+                          {{option.Componente}}
+                        </mat-option>
+                      </mat-autocomplete>
+                    <mat-icon matSuffix><fa-icon [icon]="['fas', 'search']" class="fa-lg"></fa-icon></mat-icon>
+                    <mat-error *ngIf="val.ValForm.get('txt_Factor_Tiempo_Componente')?.errors?.Regla=='1'">Componenete es <strong>requerido</strong></mat-error>
+                    
+                </mat-form-field>
+
+
+            </div>
+
+
+            <div class="row">
+                <mat-form-field class="col-sm-12 col-md-4 col-lg-4">
+                    <mat-label><b>BULTOS</b></mat-label>
+                    <input matInput type="text" id="txt_Factor_Tiempo_Bulto" formControlName="txt_Factor_Tiempo_Bulto" placeholder="" (keydown.enter)="onKeyEnter($event)" (keyup)="calcularMinutos();">
+                    <mat-error *ngIf="val.ValForm.get('txt_Factor_Tiempo_Bulto')?.errors?.Regla=='1'">Bultos es <strong>requerido</strong></mat-error>
+                </mat-form-field>
+
+                <mat-form-field class="col-sm-12 col-md-4 col-lg-4">
+                  <mat-label><b>LONGITUD MARKER</b></mat-label>
+                  <input  matInput type="text" id="txt_Factor_Tiempo_Yarda" formControlName="txt_Factor_Tiempo_Yarda" placeholder="" (keydown.enter)="onKeyEnter($event)" (keyup)="calcularMinutos();">
+                  <mat-error *ngIf="val.ValForm.get('txt_Factor_Tiempo_Yarda')?.errors?.Regla=='1'">Longitud Marker es <strong>requerido</strong></mat-error>
+              </mat-form-field>
+
+              <mat-form-field class="col-sm-12 col-md-4 col-lg-4">
+                <mat-label><b>CANTIDAD DE PERSONAS</b></mat-label>
+                <input  matInput type="text" id="txt_Factor_Tiempo_personas" formControlName="txt_Factor_Tiempo_personas" placeholder="" (keydown.enter)="onKeyEnter($event)" (keyup)="calcularMinutos();">
+                <mat-error *ngIf="val.ValForm.get('txt_Factor_Tiempo_personas')?.errors?.Regla=='1'">Cantidad de personas es <strong>requerido</strong></mat-error>
+            </mat-form-field>
+
+            </div>
+
+
+            <div class="row">
+
+                <mat-form-field class="col-sm-12 col-md-6 col-lg-6">
+                  <mat-label><b>FECHA HORA INICIO</b></mat-label>
+                  <input [(ngModel)]="FechaInicio" matInput [ngxMatDatetimePicker]="picker" id="txt_Factor_Tiempo_Fecha" formControlName="txt_Factor_Tiempo_Fecha" (dateChange)="calcularMinutos();" (keyup)="calcularMinutos();">
+                  <mat-datepicker-toggle matSuffix [for]="$any(picker)"></mat-datepicker-toggle>
+                  <ngx-mat-datetime-picker #picker ></ngx-mat-datetime-picker>
+                  <mat-error *ngIf="val.ValForm.get('txt_Factor_Tiempo_Fecha')?.errors?.Regla=='1'">Fecha <strong>requerido</strong></mat-error>
+                </mat-form-field>
+    
+           
+                <mat-form-field class="col-sm-12 col-md-6 col-lg-6">
+                  <mat-label><b>FECHA HORA FINAL</b></mat-label>
+                  <input [(ngModel)]="FechaFinal" matInput [ngxMatDatetimePicker]="picker2" id="txt_Factor_TiempoFinal" formControlName="txt_Factor_TiempoFinal" style="color:blue;" [disabled]="true">
+                  <mat-datepicker-toggle matSuffix [for]="$any(picker2)"></mat-datepicker-toggle>
+                  <ngx-mat-datetime-picker #picker2 ></ngx-mat-datetime-picker>
+                  <mat-error *ngIf="val.ValForm.get('txt_Factor_TiempoFinal')?.errors?.Regla=='1'">Fecha <strong>requerido</strong></mat-error>
+                </mat-form-field>
+    
+
+                </div>
+
+
+
+               
+                <div class="row">
+
+                  <div class="col-sm-6">
+                    <mat-label><b>HORAS: </b><b style="color: blue;">{{num_Horas}}</b></mat-label>
+                  </div>
+
+                  <div class="col-sm-6">
+                    <mat-label><b>MINUTOS: </b><b style="color: blue;">{{num_Minutos}}</b></mat-label>
+                  </div>
+   
+                </div>
+  
+                <div class="row">
+                  <div class="col-12">
+                      <div class="button-row text-end">
+                        <button type="button" class="btn btn-outline-secondary" (click)="exportar()"><b>EXPORTAR </b><fa-icon [icon]="['fas', 'file-excel']" class="fa-2x" style="color:green"></fa-icon></button>
+                      </div>
+                  </div>
+              </div>
+
+
+        </form>
+    </div>
+
+</div>

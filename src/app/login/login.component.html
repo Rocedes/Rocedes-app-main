@@ -1,0 +1,72 @@
+<body class="text-center">
+    <main class="form-signin ">
+        <form name="frm"  [formGroup]="val.ValForm"   novalidate>
+          <img class="mb-4" src="../assets/imagenes/log-1.jpg" alt="" width="200" height="200">
+          <h1 class="h3 mb-3 fw-normal">Por favor, registrese</h1>
+        
+
+
+         <mat-form-field class="form-floating">
+          <mat-label>Usuario.</mat-label>
+          <input appAutofocus matInput type="text"  id="txtLoginUsuario" formControlName="txtLoginUsuario" placeholder="Ingrese el usuario." (keydown.enter)="onKeyEnter($event)">
+          <mat-icon matPrefix >person</mat-icon>
+          <mat-error *ngIf="val.ValForm.get('txtLoginUsuario')?.errors?.Regla=='1'">Usuario es <strong>requerido</strong></mat-error>
+          <mat-error *ngIf="val.ValForm.get('txtLoginUsuario')?.errors?.Regla=='2'">Debe de contener al menos <strong>5</strong> cáracteres</mat-error>
+        </mat-form-field>
+    
+
+    
+         
+
+
+
+          <mat-form-field class="form-floating">
+            <mat-label>Contraseña.</mat-label>
+            <input matInput  [type]="bol_HidePass ? 'password' : 'text'" id="txtLoginPass"    formControlName="txtLoginPass" placeholder="Contraseña"  (keydown.enter)="InicioSesion()">
+            <mat-icon matSuffix (click)="bol_HidePass = !bol_HidePass">{{bol_HidePass ? 'visibility_off' : 'visibility'}}</mat-icon>
+            <mat-icon matPrefix >lock</mat-icon>
+            <mat-error *ngIf="val.ValForm.get('txtLoginPass')?.errors?.Regla=='1'">Contraseña es <strong>requerido</strong></mat-error>
+            <mat-error *ngIf="val.ValForm.get('txtLoginPass')?.errors?.Regla=='2'">Debe de contener al menos <strong>6</strong> cáracteres</mat-error>
+        </mat-form-field>
+        
+  
+
+        <div class="checkbox mb-3">
+          <mat-checkbox  formControlName="check_LogRecordar" [(ngModel)]="bol_remenber"  color="accent">
+              <b>Recordar?</b>
+           </mat-checkbox>
+      </div>
+
+
+        <div>
+          <button *ngIf="!bol_Load else spinBar" (click)="InicioSesion()" class="w-100 btn btn-lg btn-primary" type="submit" [disabled]="val.ValForm.invalid || bol_Load">Iniciar Sesión 
+            <fa-icon [icon]="['fas', 'unlock']" class="fa-lg"></fa-icon>
+          </button>
+          
+        </div>
+          
+
+         
+
+        </form>
+
+        <!-----------------------------------------------------SPINNER---------------------------------------------------------------->
+
+      <ng-template #spinBar>
+        <div class="spinner-wrapper">
+          <span><b>Por favor espere...</b></span>
+          <mat-progress-spinner 
+          class="example-margin"
+          color="primary"
+          mode="indeterminate"
+          [diameter]="30">
+        </mat-progress-spinner>
+        </div>
+
+        
+      </ng-template>
+
+    
+      </main>
+    
+</body>

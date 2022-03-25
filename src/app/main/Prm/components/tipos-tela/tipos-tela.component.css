@@ -1,0 +1,15 @@
+#divOperacion-frm-tela{
+    width: 400px;
+    margin: auto;
+    background-color: white;
+}
+
+#divOperacion-frm-tela-registros{
+    width: 600px;
+    margin: auto;
+    background-color: white;
+}
+
+#tabla-tela{
+    max-height: 600px;
+}

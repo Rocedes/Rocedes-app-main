@@ -1,0 +1,15 @@
+#divOperacion-frm-ounce{
+    width: 600px;
+    margin: auto;
+    background-color: white;
+}
+
+#divOperacion-frm-ounce-registros{
+    width: 800px;
+    margin: auto;
+    background-color: white;
+}
+
+#tabla-ounce{
+    max-height: 600px;
+}

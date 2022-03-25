@@ -1,0 +1,177 @@
+<ng-container *ngIf="str_from=='tiempo'">
+
+
+
+  <div class="formulario" id="divTendidoTiempo">
+    <div class="head-form" id="from-encabezado">
+        <div class="from-encabezado-titulo"><p>DATOS DEL CORTE</p></div>
+        <div class="from-encabezado-salir"><a href="#" (click)="Limpiar()"><fa-icon [icon]="['fas', 'sign-out-alt']" class="fa-lg" style="color:white"></fa-icon></a></div>
+      </div>
+
+      <div class="container">
+          <form class="form" [formGroup]="val.ValForm"  novalidate>
+
+
+            <div class="row">
+                <mat-form-field class="col-sm-12 col-md-6 col-lg-6">
+                    <mat-label><b>CAPAS</b></mat-label>
+                    <input appAutofocus matInput type="text" id="txt_Tendido_Cantidad_Capas" formControlName="txt_Tendido_Cantidad_Capas" placeholder="Ingrese la cantidad de capas." (keydown.enter)="onKeyEnter($event)" (keyup)="calcularMinutos();">
+                    <mat-error *ngIf="val.ValForm.get('txt_Tendido_Cantidad_Capas')?.errors?.Regla=='1'">Capas <strong>requerido</strong></mat-error>
+                </mat-form-field>
+
+                <mat-form-field class="col-sm-12 col-md-6 col-lg-6">
+                  <mat-label><b>ROLLOS</b></mat-label>
+                  <input  matInput type="text" id="txt_Tendido_Cantidad_Rollos" formControlName="txt_Tendido_Cantidad_Rollos" placeholder="Ingrese la cantidad de rollos." (keydown.enter)="onKeyEnter($event)" (keyup)="calcularMinutos();">
+                  <mat-error *ngIf="val.ValForm.get('txt_Tendido_Cantidad_Rollos')?.errors?.Regla=='1'">Rollos <strong>requerido</strong></mat-error>
+              </mat-form-field>
+
+
+            </div>
+
+            <div class="row">
+
+              <mat-form-field class="col-sm-12 col-md-6 col-lg-6">
+                <mat-label><b>LARGO DE MARKER</b></mat-label>
+                <input  matInput type="text" id="txt_Tendido_Cantidad_Yardas" formControlName="txt_Tendido_Cantidad_Yardas" placeholder="Ingrese la cantidad de yardas tendidas." (keydown.enter)="onKeyEnter($event)" (keyup)="calcularMinutos();">
+                <mat-error *ngIf="val.ValForm.get('txt_Tendido_Cantidad_Yardas')?.errors?.Regla=='1'">Largo de Marker <strong>requerido</strong></mat-error>
+              </mat-form-field>
+
+              <div class="col-sm-12 col-md-6 col-lg-6">
+                <mat-label><b>TOTAL YARDAS TENDIDAS: </b><b style="color: blue;">{{TotalYardas}}</b></mat-label>
+              </div>
+              
+
+      
+
+            </div>
+
+
+            <div class="row">
+
+              <mat-form-field class="col-sm-12 col-md-6 col-lg-6">
+                <mat-label><b>FECHA HORA INICIO</b></mat-label>
+                <input [(ngModel)]="FechaInicio" matInput [ngxMatDatetimePicker]="picker" id="txt_Tendido_Fecha" formControlName="txt_Tendido_Fecha" (dateChange)="calcularMinutos();" (keyup)="calcularMinutos();">
+                <mat-datepicker-toggle matSuffix [for]="$any(picker)"></mat-datepicker-toggle>
+                <ngx-mat-datetime-picker #picker ></ngx-mat-datetime-picker>
+                <mat-error *ngIf="val.ValForm.get('txt_Tendido_Fecha')?.errors?.Regla=='1'">Fecha <strong>requerido</strong></mat-error>
+              </mat-form-field>
+
+        
+              <mat-form-field class="col-sm-12 col-md-6 col-lg-6">
+                <mat-label><b>FECHA HORA FINAL</b></mat-label>
+                <input [(ngModel)]="FechaFinal" matInput [ngxMatDatetimePicker]="picker2" id="txt_Tendido_Fecha_Final" formControlName="txt_Tendido_Fecha_Final" style="color:blue;" [disabled]="true">
+                <mat-datepicker-toggle matSuffix [for]="$any(picker2)"></mat-datepicker-toggle>
+                <ngx-mat-datetime-picker #picker2 ></ngx-mat-datetime-picker>
+                <mat-error *ngIf="val.ValForm.get('txt_Tendido_Fecha_Final')?.errors?.Regla=='1'">Fecha <strong>requerido</strong></mat-error>
+              </mat-form-field>
+            
+            </div>
+
+
+            
+            <div class="row">
+
+              <div class="col-sm-6">
+                <mat-label><b>HORAS: </b><b style="color: blue;">{{num_Horas}}</b></mat-label>
+              </div>
+
+              <div class="col-sm-6">
+                <mat-label><b>MINUTOS: </b><b style="color: blue;">{{num_Minutos}}</b></mat-label>
+              </div>
+
+            </div>
+            
+
+            
+          </form>
+      </div>
+</div>
+
+
+
+    <div class="Lista-Registro" id="divRegistrosFactorTiempo" >
+        <div class="franja"><p>{{str_Titulo_Tiempo}}</p></div>
+    
+        <div class="container">
+          <div class="row">
+
+            <div class="col-sm-12 col-md-4 col-md-6">
+              <mat-form-field>
+                <mat-label>BUSCAR</mat-label>
+                <input matInput (keyup)="filtrar($event)" placeholder="buscar">
+              </mat-form-field>
+              <a style="cursor: pointer" (click)="exportar()">
+                <fa-icon [icon]="['fas', 'file-excel']" class="fa-2x" style="color:green"></fa-icon>
+              </a>
+            </div>
+            
+
+            <div class="col-sm-12 col-md-4 col-md-6">
+              <div class="button-row text-end">
+                <button type="button" class="btn btn-outline-secondary" (click)="LLenarTabla()"><b>REFRESCAR</b> <fa-icon [icon]="['fas', 'search']" class="fa-2x"></fa-icon></button>
+              </div>
+            </div>
+
+
+          </div>
+        </div>
+        
+         
+      
+       
+        <div class="mat-elevation-z8" id="tbl-tendido-tiempo">
+
+
+              <table mat-table [dataSource]="dataSourceFactorTendidoTiempo" matSort (matSortChange)="announceSortChange($event)">
+            
+  
+
+                <ng-container matColumnDef="IdProcesoTendido">
+                    <th mat-header-cell  *matHeaderCellDef>
+                        NO.
+                    </th>
+                    <td mat-cell  *matCellDef="let element; let j = index;" [ngStyle]="{'font-weight':element.IdProcesoTendido == -1 ? 'bold' : 'normal'}"> 
+                        {{j+1}}
+                    </td>
+                </ng-container>
+
+
+              
+                <ng-container matColumnDef="Descripcion">
+                    <th mat-header-cell class="myHeader" *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Descripcion">
+                      PROCESO.
+                    </th>
+                    <td mat-cell class="myCell" *matCellDef="let element" [ngStyle]="{'font-weight':element.IdProcesoTendido == -1 ? 'bold' : 'normal'}"> {{ element.Descripcion }} </td>
+                    
+                </ng-container>
+
+                
+          
+
+              <ng-container matColumnDef="Minutos">
+                <th mat-header-cell class="myHeader" *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Minutos">
+                  MINUTOS.
+                </th>
+                <td mat-cell class="myCell" *matCellDef="let element" [ngStyle]="{'font-weight':element.IdProcesoTendido == -1 ? 'bold' : 'normal'}">  {{element.Minutos | number : '1.4-4'}} </td>
+            </ng-container>
+               
+
+          
+            
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr
+              mat-row  [class.demo-row-is-clicked]="clickedRows.has(row)" *matRowDef="let row; columns: displayedColumns;"></tr>
+              
+            </table>
+            <mat-paginator [pageSizeOptions]="[25, 50, 100, 1000]"  showFirstLastButtons></mat-paginator>
+        </div>
+    
+            
+    
+       
+    </div>
+
+    
+  
+</ng-container>
+

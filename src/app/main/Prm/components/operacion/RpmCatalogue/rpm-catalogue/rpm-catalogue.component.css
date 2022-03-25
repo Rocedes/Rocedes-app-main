@@ -1,0 +1,15 @@
+#divOperacion-frm-rpm-catalogue{
+    width: 400px;
+    margin: auto;
+    background-color: white;
+}
+
+#divOperacion-frm-rpm-catalogue-registros{
+    width: 600px;
+    margin: auto;
+    background-color: white;
+}
+
+#tabla-rpm-catalogue{
+    max-height: 600px;
+}

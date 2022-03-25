@@ -1,0 +1,215 @@
+<ng-container *ngIf="str_from=='factores'">
+
+    <div class="Lista-Registro" id="divRegistrosFactorTendido" >
+        <div class="franja"><p>Factores de Tendido</p></div>
+    
+        <div class="container">
+            <div class="row">
+
+                <div class="col-sm-12 col-md-4 col-md-6">
+                  <mat-form-field>
+                    <mat-label>Buscar</mat-label>
+                    <input appAutofocus matInput (keyup)="filtrar($event)" placeholder="buscar">
+                  </mat-form-field>
+                </div>
+                
+    
+                <div class="col-sm-12 col-md-4 col-md-6">
+                  <div class="button-row text-end">
+                    <button type="button" class="btn btn-outline-secondary" (click)="LLenarTabla()"><b>Refrescar</b> <fa-icon [icon]="['fas', 'search']" class="fa-2x"></fa-icon></button>
+                  </div>
+                </div>
+    
+    
+              </div>
+        </div>
+         
+      
+       
+        <div class="mat-elevation-z8" id="tbl-tendido-factor">
+
+
+              <table mat-table [dataSource]="dataSourceFactorTendido" matSort (matSortChange)="announceSortChange($event)">
+            
+  
+                <ng-container matColumnDef="IdProcesoTendido" sticky>
+                    <th mat-header-cell *matHeaderCellDef> No. </th>
+                    <td mat-cell *matCellDef="let element; let j = index"> {{j+1}} </td>
+                </ng-container>
+
+
+
+
+              
+                <ng-container matColumnDef="Descripcion" sticky>
+                    <th mat-header-cell class="myHeader" *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Descripcion">
+                      Proceso.
+                    </th>
+                    <td mat-cell class="myCell" *matCellDef="let element" > {{element.Descripcion}} </td>
+                </ng-container>
+
+                
+                <ng-container matColumnDef="Factor1">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Factor1">
+                      Factor 1.
+                    </th>
+                    <td mat-cell *matCellDef="let element"> 
+                        <mat-form-field floatLabel="never" class="col-factor-tendido">
+                            <input  matInput placeholder="" [value]="element.Factor1" [(ngModel)]="element.Factor1" [disabled]="element.NoFactor + 1 <= 1">
+                        </mat-form-field>
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="Factor2">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Factor2">
+                      Factor 2.
+                    </th>
+                    <td mat-cell *matCellDef="let element"> 
+                        <mat-form-field floatLabel="never" class="col-factor-tendido">
+                            <input matInput placeholder="" [value]="element.Factor2" [(ngModel)]="element.Factor2" [disabled]="element.NoFactor + 1 <= 2">
+                        </mat-form-field>
+                    </td>
+                </ng-container>
+
+
+                <ng-container matColumnDef="Factor3">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Factor3">
+                      Factor 3.
+                    </th>
+                    <td mat-cell *matCellDef="let element"> 
+                        <mat-form-field floatLabel="never" class="col-factor-tendido">
+                            <input matInput placeholder="" [value]="element.Factor3" [(ngModel)]="element.Factor3" [disabled]="element.NoFactor + 1 <= 3">
+                        </mat-form-field>
+                    </td>
+                </ng-container>
+
+
+                <ng-container matColumnDef="Factor4">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Factor4">
+                      Factor 4.
+                    </th>
+                    <td mat-cell *matCellDef="let element"> 
+                        <mat-form-field floatLabel="never" class="col-factor-tendido">
+                            <input matInput placeholder="" [value]="element.Factor4" [(ngModel)]="element.Factor4" [disabled]="element.NoFactor + 1 <= 4">
+                        </mat-form-field>
+                    </td>
+                </ng-container>
+
+
+                <ng-container matColumnDef="Factor5">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Factor5">
+                      Factor 5.
+                    </th>
+                    <td mat-cell *matCellDef="let element"> 
+                        <mat-form-field floatLabel="never" class="col-factor-tendido">
+                            <input matInput placeholder="" [value]="element.Factor5" [(ngModel)]="element.Factor5" [disabled]="element.NoFactor + 1 <= 5">
+                        </mat-form-field>
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="Factor6">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Factor6">
+                      Factor 6.
+                    </th>
+                    <td mat-cell *matCellDef="let element"> 
+                        <mat-form-field floatLabel="never" class="col-factor-tendido">
+                            <input matInput placeholder="" [value]="element.Factor6" [(ngModel)]="element.Factor6" [disabled]="element.NoFactor + 1 <= 6">
+                        </mat-form-field>
+                    </td>
+                </ng-container>
+
+
+                <ng-container matColumnDef="Factor7">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Factor7">
+                      Factor 7.
+                    </th>
+                    <td mat-cell *matCellDef="let element"> 
+                        <mat-form-field floatLabel="never" class="col-factor-tendido">
+                            <input matInput placeholder="" [value]="element.Factor7" [(ngModel)]="element.Factor7" [disabled]="element.NoFactor + 1 <= 7">
+                        </mat-form-field>
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="Factor8">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Factor8">
+                      Factor 8.
+                    </th>
+                    <td mat-cell *matCellDef="let element"> 
+                        <mat-form-field floatLabel="never" class="col-factor-tendido">
+                            <input matInput placeholder="" [value]="element.Factor8" [(ngModel)]="element.Factor8" [disabled]="element.NoFactor + 1 <= 8">
+                        </mat-form-field>
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="Factor9">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Factor9">
+                      Factor 9.
+                    </th>
+                    <td mat-cell *matCellDef="let element"> 
+                        <mat-form-field floatLabel="never" class="col-factor-tendido">
+                            <input matInput placeholder="" [value]="element.Factor9" [(ngModel)]="element.Factor9" [disabled]="element.NoFactor + 1 <= 9">
+                        </mat-form-field>
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="Factor10">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Factor10">
+                      Factor 10.
+                    </th>
+                    <td mat-cell *matCellDef="let element"> 
+                        <mat-form-field floatLabel="never" class="col-factor-tendido">
+                            <input matInput placeholder="" [value]="element.Factor10" [(ngModel)]="element.Factor10" [disabled]="element.NoFactor + 1 <= 10">
+                        </mat-form-field>
+                    </td>
+                </ng-container>
+
+
+                <ng-container matColumnDef="Factor11">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Factor11">
+                      Factor 11.
+                    </th>
+                    <td mat-cell *matCellDef="let element"> 
+                        <mat-form-field floatLabel="never" class="col-factor-tendido">
+                            <input matInput placeholder="" [value]="element.Factor11" [(ngModel)]="element.Factor11" [disabled]="element.NoFactor + 1 <= 11">
+                        </mat-form-field>
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="Factor12">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Factor12">
+                      Factor 12.
+                    </th>
+                    <td mat-cell *matCellDef="let element"> 
+                        <mat-form-field floatLabel="never" class="col-factor-tendido">
+                            <input matInput placeholder="" [value]="element.Factor12" [(ngModel)]="element.Factor12" [disabled]="element.NoFactor + 1 <= 12">
+                        </mat-form-field>
+                    </td>
+                </ng-container>
+
+      
+                
+                <ng-container matColumnDef="Guardar" stickyEnd >
+                    <th mat-header-cell  *matHeaderCellDef>
+
+                    </th>
+                    <td mat-cell  *matCellDef="let element; let j = index" > 
+                        <a href="#" (click)="clickRow(element)"><fa-icon [icon]="['fas', 'save']" class="fa-2x" style="color:#1B364C"></fa-icon></a>
+                    </td>
+                </ng-container>
+
+          
+            
+              <tr mat-header-row *matHeaderRowDef="displayedColumns sticky: true"></tr>
+              <tr
+              mat-row  [class.demo-row-is-clicked]="clickedRows.has(row)" *matRowDef="let row; columns: displayedColumns;"></tr>
+              
+            </table>
+            <mat-paginator [pageSizeOptions]="[25, 50, 100, 1000]"  showFirstLastButtons></mat-paginator>
+        </div>
+    
+            
+    
+       
+    </div>
+</ng-container>
+

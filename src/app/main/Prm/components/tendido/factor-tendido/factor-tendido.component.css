@@ -1,0 +1,24 @@
+.myHeader, .myCell{
+    flex: 0 0 100px;
+    white-space: nowrap;
+  }
+
+
+  .col-factor-tendido {
+    width: 120px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+#tbl-tendido-factor{
+  max-height: 600px;
+}
+ /*
+#tabla-factor-tendido td:nth-child(1), #tabla-factor-tendido td:nth-child(2), #tabla-factor-tendido td:nth-child(3)
+{
+    position:sticky;
+    left:0;
+    z-index:1;
+    background-color:white;
+}*/
+ 

@@ -1,0 +1,15 @@
+#divOperacion-frm-partes{
+    width: 600px;
+    margin: auto;
+    background-color: white;
+}
+
+#divOperacion-frm-partes-registros{
+    width: 600px;
+    margin: auto;
+    background-color: white;
+}
+
+#tabla-partes{
+    max-height: 600px;
+}

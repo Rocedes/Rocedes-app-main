@@ -1,0 +1,313 @@
+<div class="container">
+    <form class="form"   [formGroup]="val.ValForm">
+        <div class="row">
+            <mat-form-field class="col-sm-12 col-md-3 col-lg-3">
+              <mat-label><b>FECHA INICIO</b></mat-label>
+              <input matInput [matDatepicker]="picker" id="txt_Matriz_Data_Fecha_Inicio" formControlName="txt_Matriz_Data_Fecha_Inicio">
+              <mat-datepicker-toggle matSuffix [for]="picker">
+              </mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+              <mat-error *ngIf="val.ValForm.get('txt_Matriz_Data_Fecha_Inicio')?.errors?.Regla=='1'">Date it is <strong>required</strong></mat-error>
+            </mat-form-field>
+    
+       
+
+            <mat-form-field class="col-sm-12 col-md-3 col-lg-3">
+              <mat-label><b>FECHA FINAL</b></mat-label>
+              <input matInput [matDatepicker]="picker2" id="txt_Matriz_Data_Fecha_Final" formControlName="txt_Matriz_Data_Fecha_Final">
+              <mat-datepicker-toggle matSuffix [for]="picker2">
+              </mat-datepicker-toggle>
+              <mat-datepicker #picker2></mat-datepicker>
+              <mat-error *ngIf="val.ValForm.get('txt_Matriz_Data_Fecha_Final')?.errors?.Regla=='1'">Date it is <strong>required</strong></mat-error>
+            </mat-form-field>
+
+            <div class="col-sm-12 col-md-6 col-lg-6">
+                <div class="button-row text-center">
+                    <button type="button" class="btn btn-outline-success"  (click)="Buscar()" ><fa-icon [icon]="['fas', 'search']" class="fa-lg"></fa-icon> SEARCH</button>
+                    <button type="button" class="btn btn-outline-secondary"  (click)="Limpiar()" ><fa-icon [icon]="['fas', 'broom']" class="fa-lg"></fa-icon> CLEAN</button>
+                </div>
+                
+            </div>
+            
+          </div>
+    </form>
+    
+   
+</div>
+
+
+<div class="franja"><p>OPERATION MATRIX DATA</p></div>
+<div class="mat-elevation-z8" Id="tabla-operation-matrix-data">
+  
+
+  <div class="container">
+    <div class="row">
+
+      <div class="col-sm-12 col-md-4 col-md-6">
+        <mat-form-field>
+          <mat-label>Find</mat-label>
+          <input appAutofocus matInput (keyup)="filtrar($event)" placeholder="Find">
+        </mat-form-field>
+      </div>
+      
+    </div>
+  </div>
+    
+
+  <table mat-table  [dataSource]="dataSource"  matSort (matSortChange)="announceSort($event)" >
+
+
+  <ng-container matColumnDef="IdMethodAnalysis">
+    <th mat-header-cell *matHeaderCellDef> NO. </th>
+    <td class="block" mat-cell *matCellDef="let element; let j = index" style="color:#1b364c; font-weight: bold;"> {{j+1}} </td>
+  </ng-container>
+
+
+  <ng-container matColumnDef="Codigo" sticky>
+    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Codigo">
+      CODIGO.
+    </th>
+    <td class="block" mat-cell *matCellDef="let element"> {{element.Codigo}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="Sam">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Sam">
+      SAM.
+    </th>
+    <td class="block" mat-cell *matCellDef="let element"> {{element.Sam}} </td>
+  </ng-container>
+
+
+  <ng-container matColumnDef="Precio">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Precio">
+      PRECIO.
+    </th>
+    <td class="block" mat-cell *matCellDef="let element"> {{element.Precio}} </td>
+  </ng-container>
+
+
+  <ng-container matColumnDef="Manufacturing">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Manufacturing">
+      PROCESO DE MANUFACTURA.
+    </th>
+    <td class="block" mat-cell *matCellDef="let element"> {{element.Manufacturing}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="Producto">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Producto">
+      PRODUCTO.
+    </th>
+    <td class="block" mat-cell *matCellDef="let element"> {{element.Producto}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="Family">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Family">
+      FAMILIA.
+    </th>
+    <td class="block" mat-cell *matCellDef="let element"> {{element.Family}} </td>
+  </ng-container>
+
+
+  <ng-container matColumnDef="Operacion">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Operacion">
+      NOMBRE DE OPERACION.
+    </th>
+    <td class="block" mat-cell *matCellDef="let element"> {{element.Operacion}} </td>
+  </ng-container>
+
+
+  <ng-container matColumnDef="Secuence">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Secuence">
+      UBICACION (SECUENCIA).
+    </th>
+    <td class="block" mat-cell *matCellDef="let element"> {{element.Secuence}} </td>
+  </ng-container>
+
+  
+  <ng-container matColumnDef="StitchInch">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by StitchInch">
+      PUNTADAS POR PULGADAS.
+    </th>
+    <td class="block" mat-cell *matCellDef="let element"> {{element.StitchInch}} </td>
+  </ng-container>
+
+
+  <ng-container matColumnDef="DataMachine">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by DataMachine">
+      TIPO DE MÁQUINA.
+    </th>
+    <td class="block" mat-cell *matCellDef="let element"> {{element.DataMachine}} </td>
+  </ng-container>
+
+
+  <ng-container matColumnDef="Machine">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Machine">
+      DECRIPCION DE MAQUINA.
+    </th>
+    <td class="block" mat-cell *matCellDef="let element"> {{element.Machine}} </td>
+  </ng-container>
+
+
+  <ng-container matColumnDef="TypeStitch">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by TypeStitch">
+      TIPO DE PUNTADA.
+    </th>
+    <td class="block" mat-cell *matCellDef="let element"> {{element.TypeStitch}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="Rpm">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Rpm">
+      RPM.
+    </th>
+    <td class="block" mat-cell *matCellDef="let element"> {{element.Rpm}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="Tela">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Tela">
+      TIPO DE TELA.
+    </th>
+    <td class="block" mat-cell *matCellDef="let element"> {{element.Tela}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="Ounce">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Ounce">
+      PESO DE TELA.
+    </th>
+    <td class="block" mat-cell *matCellDef="let element"> {{element.Ounce}} </td>
+  </ng-container>
+
+
+  <ng-container matColumnDef="NeedleType">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by NeedleType">
+      TIPO DE AGUJA.
+    </th>
+    <td class="block" mat-cell *matCellDef="let element"> {{element.NeedleType}} </td>
+  </ng-container>
+
+
+  <ng-container matColumnDef="Caliber">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Caliber">
+      CALIBRE DE AGUJA.
+    </th>
+    <td class="block" mat-cell *matCellDef="let element"> {{element.Caliber}} </td>
+  </ng-container>
+
+
+  
+
+  <ng-container matColumnDef="FeedDog">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by FeedDog">
+      CÓDIGO DE DIENTE DE ARRASTRE.
+    </th>
+    <td class="block" mat-cell *matCellDef="let element"> {{element.FeedDog}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="PresserFoot">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by PresserFoot">
+      CÓDIGO DE PRENSATELA.
+    </th>
+    <td class="block" mat-cell *matCellDef="let element"> {{element.PresserFoot}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="Folder">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Folder">
+      TIPO DE FOLDER.
+    </th>
+    <td class="block" mat-cell *matCellDef="let element"> {{element.Folder}} </td>
+  </ng-container>
+
+
+  <ng-container matColumnDef="MateriaPrima_1">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by MateriaPrima_1">
+      MATERIA PRIMA 1.
+    </th>
+    <td class="block" mat-cell *matCellDef="let element"> {{element.MateriaPrima_1}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="MateriaPrima_2">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by MateriaPrima_2">
+      MATERIA PRIMA 2.
+    </th>
+    <td class="block" mat-cell *matCellDef="let element"> {{element.MateriaPrima_2}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="MateriaPrima_3">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by MateriaPrima_3">
+      MATERIA PRIMA 3.
+    </th>
+    <td class="block" mat-cell *matCellDef="let element"> {{element.MateriaPrima_3}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="Usuario">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Usuario">
+      ANALISTA.
+    </th>
+    <td class="block" mat-cell *matCellDef="let element"> {{element.Usuario}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="FechaRegistro">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by FechaRegistro">
+      CREADO.
+    </th>
+    <td class="block" mat-cell *matCellDef="let element"> {{this.datePipe.transform(element.FechaRegistro, 'dd-MM-yyyy hh:mm:ss')?.toString()}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="UsuarioModifica">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by UsuarioModifica">
+      ANALISTA MODIFICA.
+    </th>
+    <td class="block" mat-cell *matCellDef="let element"> {{element.UsuarioModifica}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="FechaModifica">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by FechaModifica">
+      MODIFICADO.
+    </th>
+    <td class="block" mat-cell *matCellDef="let element"> {{this.datePipe.transform(element.FechaModifica, 'dd-MM-yyyy hh:mm:ss')?.toString()}} </td>
+  </ng-container>
+
+
+
+  <ng-container matColumnDef="Editar" stickyEnd>
+    <th mat-header-cell *matHeaderCellDef>
+    </th>
+    <td class="block" mat-cell *matCellDef="let element" >
+      <a href="#" (click)="clickRow(element, 'Editar'); modal1.show();"><fa-icon [icon]="['fas', 'edit']" class="fa-2x" style="color:#1b364c"></fa-icon></a>
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="Eliminar" stickyEnd>
+    <th mat-header-cell *matHeaderCellDef>
+    </th>
+    <td class="block" mat-cell *matCellDef="let element" >
+      <a href="#" (click)="clickRow(element, 'Eliminar')"><fa-icon [icon]="['fas', 'trash-alt']" class="fa-2x" style="color:maroon"></fa-icon></a>
+    </td>
+  </ng-container>
+
+
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr
+  mat-row  [class.demo-row-is-clicked]="clickedRows.has(row)" *matRowDef="let row; columns: displayedColumns;"></tr>
+  
+</table>
+<mat-paginator [pageSizeOptions]="[50, 100, 500]"  showFirstLastButtons></mat-paginator>
+</div>
+
+
+
+<!--https://github.com/mazdik/ng-modal-->
+  <app-modal #modal1 class="panel-demo1" [maximizable]="true" [backdrop]="true">
+    <ng-container class="app-modal-header">Operation</ng-container>
+    <ng-container class="app-modal-body">
+      <app-method-analysis></app-method-analysis>
+    </ng-container>
+    <ng-container class="app-modal-footer">
+      <div class="button-row text-end">
+        <button type="button" class="dt-button dt-rocedes" (click)="Cerrar(); modal1.hide()">
+          <fa-icon [icon]="['fas', 'broom']" class="fa-lg"></fa-icon> Close
+        </button>
+      </div>
+    </ng-container>
+  </app-modal>
+  

@@ -1,0 +1,45 @@
+
+
+<div class="formulario" >
+
+   
+    <div class="head-form">
+      <div class="from-encabezado-titulo"><p>SUBIR ARCHIVO</p></div>
+    </div>
+
+    <div id="div-subir-excel">
+        <!--<div id="file-upload-excel">
+            <angular-file-uploader 
+            [config]="afuConfig"
+            (fileSelected)="fileSelected($event)"
+            (ApiResponse)="docUpload($event)">
+            </angular-file-uploader>
+        </div>-->
+        <div>
+            <label  class="btn btn-sm upload-file-select" for="upload-file-excel">Seleccione el Archivo</label>
+            <input  type="file" title="Select file" name="files" style="display: none;" id="upload-file-excel" accept=".xlsx, .xls" (change)="fileSelected($event)">
+            <button  class="btn btn btn-success btn-sm" (click)="Formato()"><fa-icon [icon]="['fas', 'file-excel']" class="fa-lg" style="color:white;"></fa-icon> Formato</button>
+            <button  class="btn btn-outline-secondary btn-sm" (click)="Limpiar()"><fa-icon [icon]="['fas', 'broom']" class="fa-lg"></fa-icon> Limpiar</button>
+        </div>
+        <div>
+            <ol>
+                <ng-container *ngFor="let item of this._Filas; let i=index">
+                    <div>
+                        <!--<fa-icon [icon]="['fas', 'file-excel']" class="fa-lg" style="color:seagreen;"></fa-icon>-->
+                        <li #upload_file_item id="item-doc-excel-{{item.Index}}" ><b>{{item.Fila}}</b></li>
+                        <a href="#" (click)="Eliminar('item-doc-excel-' + item.Index, item.Index)"><fa-icon [icon]="['fas', 'times']" class="fa-lg" style="color: red;"></fa-icon></a>
+                    </div>
+                   
+                </ng-container>    
+               </ol>
+        </div>
+        <div>
+            <button  class="btn btn-outline-success btn-sm  upload-file" (click)="SubirExcel()">Subir</button>
+            <button  class="btn btn-outline-dark btn-sm upload-close" (click)="Cerrar()">Cerrar</button>
+        </div>
+    </div>
+    
+</div>
+
+
+

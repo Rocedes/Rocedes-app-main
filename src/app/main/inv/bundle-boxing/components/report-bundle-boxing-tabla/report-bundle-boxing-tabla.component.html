@@ -1,0 +1,151 @@
+<ng-container *ngIf="str_from == 'ReportBundleBoxing-Tabla'">
+
+    <div class="Lista-Registro" id="divBundleBoxing-Tabla">
+        <div class="franja"><p>Report</p></div>
+
+        <div class="container">
+            <div class="row">
+
+                <div class="col-12">
+                    <mat-form-field>
+                        <mat-label>Buscar</mat-label>
+                        <input matInput id="txt_BundleBoxing_Tabla_Filtro" (keyup)="filtrar($event)" placeholder="buscar">
+                    </mat-form-field>
+                    <a style="cursor: pointer" (click)="exportar()">
+                        <fa-icon [icon]="['fas', 'file-excel']" class="fa-2x" style="color:green"></fa-icon>
+                      </a>
+                </div>
+                
+    
+            </div>
+        </div>
+
+       
+    
+        <div class="mat-elevation-z8">
+            <table mat-table id="excel-table" [dataSource] = "dataSourceTablaBoxin" matSort (matSortChange)="SortChange($event)">
+
+                <ng-container matColumnDef="cIndex">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by cIndex">
+                    No.
+                    </th>
+                    <td mat-cell *matCellDef="let element"> {{element.cIndex}} </td>
+                </ng-container>
+    
+    
+                <ng-container matColumnDef="cSerial">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by cSerial">
+                    Serial.
+                    </th>
+                    <td mat-cell *matCellDef="let element"> {{element.cSerial}} </td>
+                </ng-container>
+    
+    
+                <ng-container matColumnDef="cNomPieza">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by cNomPieza">
+                    Pieza.
+                    </th>
+                    <td mat-cell *matCellDef="let element"> {{element.cNomPieza}} </td>
+                </ng-container>
+    
+
+                <ng-container matColumnDef="cTalla">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by cTalla">
+                    Talla.
+                    </th>
+                    <td mat-cell *matCellDef="let element"> {{element.cTalla}} </td>
+                </ng-container>
+    
+
+                <ng-container matColumnDef="cNoBulto">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by cNoBulto">
+                    Bulto/Rollo.
+                    </th>
+                    <td mat-cell *matCellDef="let element"> {{element.cNoBulto}} </td>
+                </ng-container>
+    
+    
+                <ng-container matColumnDef="cCapaje">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by cCapaje">
+                    Capaje.
+                    </th>
+                    <td mat-cell *matCellDef="let element"> {{element.cCapaje}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="cYarda">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by cYarda">
+                    Yardaje.
+                    </th>
+                    <td mat-cell *matCellDef="let element"> {{element.cYarda}} </td>
+                </ng-container>
+    
+                <ng-container matColumnDef="cNoSaco">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by cNoSaco">
+                    Saco.
+                    </th>
+                    <td mat-cell *matCellDef="let element"> {{element.cNoSaco}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="cMesa">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by cMesa">
+                    Mesa.
+                    </th>
+                    <td mat-cell *matCellDef="let element"> {{element.cMesa}} </td>
+                </ng-container>
+    
+                <ng-container matColumnDef="cUsuario">
+                    <th mat-header-cell *matHeaderCellDef>
+                        Usuario
+                    </th>
+                    <td mat-cell *matCellDef="let element"> {{element.cUsuario}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="cFecha">
+                    <th mat-header-cell *matHeaderCellDef>
+                        Fecha
+                    </th>
+                    <td mat-cell *matCellDef="let element"> {{element.cFecha}} </td>
+                </ng-container>
+    
+    
+     
+    
+                 <!-- Default Table lines -->
+                <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                
+                <!-- Group header cells-->
+                <ng-container matColumnDef="groupHeader">
+                    <td colspan="999" mat-cell *matCellDef="let group">
+                    <strong>{{group.groupName}}</strong>
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="groupReducer">
+                    <td colspan="1" mat-cell *matCellDef="let group">
+                    <div fxFill fxLayoutAlign="center center">
+                        <mat-icon *ngIf="!group.reduced">expand_less</mat-icon>
+                        <mat-icon *ngIf="group.reduced">expand_more</mat-icon>
+                    </div>
+                    </td>
+                </ng-container>
+                
+                <!-- Group line -->
+                <tr mat-row  class="clickable"
+                    *matRowDef="let row; columns: ['groupReducer','groupHeader']; when: isGroup" 
+                    (click)="reduceGroup(row)" > 
+                </tr>
+
+
+            </table>
+                
+            <mat-paginator length="{{int_TotalRegistros}}" [pageSizeOptions]="[50, 500, 1000, 10000]"  showFirstLastButtons (page)="setPageSize($event)"></mat-paginator>
+
+        </div>
+    </div>
+
+    
+</ng-container>
+
+
+
+

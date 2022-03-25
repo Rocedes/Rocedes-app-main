@@ -1,0 +1,158 @@
+<ng-container *ngIf="str_from=='BundleBoxingSaco'">
+
+    <div class="Lista-Registro" id="divRegistrosBoginxSaco" >
+        <div class="franja"><p>Registros de Sacos</p></div>
+    
+        <div class="container">
+          <div class="row">
+
+            <div class="col-sm-12 col-md-4 col-md-6">
+              <mat-form-field>
+                <mat-label>Buscar</mat-label>
+                <input appAutofocus matInput (keyup)="filtrar($event)" placeholder="buscar">
+              </mat-form-field>
+            </div>
+            
+
+            <div class="col-sm-12 col-md-4 col-md-6">
+              <div class="button-row text-end">
+                <button type="button" class="btn btn-outline-secondary" (click)="LLenarTabla()"><b>Refrescar</b> <fa-icon [icon]="['fas', 'search']" class="fa-2x"></fa-icon></button>
+              </div>
+            </div>
+
+
+          </div>
+        </div>
+         
+      
+       
+        <div class="mat-elevation-z8">
+
+
+              <table mat-table [dataSource]="dataSourceSaco" matSort (matSortChange)="announceSortChange($event)">
+            
+  
+              <ng-container matColumnDef="IdSaco">
+                <th mat-header-cell *matHeaderCellDef> No. </th>
+                <td mat-cell *matCellDef="let element; let j = index"> {{j+1}} </td>
+              </ng-container>
+
+    
+              <ng-container matColumnDef="Serial">
+                <th mat-header-cell *matHeaderCellDef>
+                    Serial
+                </th>
+                <td mat-cell *matCellDef="let element"> {{element.Serial}} </td>
+              </ng-container>
+    
+              <ng-container matColumnDef="Saco">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Saco">
+                    No. Saco
+                </th>
+                <td mat-cell *matCellDef="let element"> {{element.Saco}} </td>
+              </ng-container>
+            
+    
+              <ng-container matColumnDef="NoMesa">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by NoMesa">
+                  No. Mesa
+                </th>
+                <td mat-cell *matCellDef="let element"> {{element.NoMesa}} </td>
+              </ng-container>
+            
+          
+             
+    
+              <ng-container matColumnDef="Usuario">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Usuario">
+                    Usuario
+                </th>
+                <td mat-cell *matCellDef="let element"> {{element.Usuario}} </td>
+              </ng-container>
+      
+    
+              <ng-container matColumnDef="UsuarioAbre">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by UsuarioAbre">
+                  Abierto
+                </th>
+                <td mat-cell *matCellDef="let element"> 
+                  {{element.UsuarioAbre}} 
+                  <a href="#" (click)="clickRow('Cerrar', element)" *ngIf="element.Abierto"><fa-icon [icon]="['fas', 'door-closed']" class="fa-2x" style="color:black"></fa-icon></a>
+                </td>
+              </ng-container>
+
+
+           
+              <ng-container matColumnDef="Corte">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Corte">
+                  Corte
+                </th>
+                <td mat-cell *matCellDef="let element"> {{element.Corte}} </td>
+              </ng-container>
+
+
+              <ng-container matColumnDef="FechaRegistro">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by FechaRegistro">
+                  Fecha
+                </th>
+                <td mat-cell *matCellDef="let element"> {{this.datepipe.transform(element.FechaRegistro, 'dd-MM-yyyy hh:mm:ss')?.toString()}}</td>
+              </ng-container>
+
+              <ng-container matColumnDef="Activo">
+                <th mat-header-cell *matHeaderCellDef>
+                  Activo
+                </th>
+                <td mat-cell *matCellDef="let element" >
+                  <fa-icon *ngIf="element.Activo" [icon]="['fas', 'check']"  class="fa-2x" ></fa-icon>
+                </td>
+              </ng-container>
+
+
+              <ng-container matColumnDef="Imprimir">
+                <th mat-header-cell *matHeaderCellDef>
+                </th>
+                <td mat-cell *matCellDef="let element" >
+                  <a href="#" (click)="clickRow('Imprimir', element); modal1.show();"><fa-icon [icon]="['fas', 'print']" class="fa-2x" style="color:green"></fa-icon></a>
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="Eliminar">
+                <th mat-header-cell *matHeaderCellDef>
+                </th>
+                <td mat-cell *matCellDef="let element" >
+                  <a href="#" (click)="clickRow('Eliminar', element)" *ngIf="element.Activo"><fa-icon [icon]="['fas', 'trash-alt']" class="fa-2x" style="color:red"></fa-icon></a>
+                </td>
+              </ng-container>
+
+  
+          
+            
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr
+              mat-row  [class.demo-row-is-clicked]="clickedRows.has(row)" *matRowDef="let row; columns: displayedColumns;"></tr>
+              
+            </table>
+            <mat-paginator [pageSizeOptions]="[25, 50, 100, 1000]"  showFirstLastButtons></mat-paginator>
+        </div>
+    
+            
+    
+       
+    </div>
+</ng-container>
+
+
+
+<app-modal #modal1 class="panel-demo1" [maximizable]="true" [backdrop]="true">
+  <ng-container class="app-modal-header">SACO</ng-container>
+  <ng-container class="app-modal-body">
+    <app-report-viewer></app-report-viewer>
+  </ng-container>
+  <ng-container class="app-modal-footer">
+    <div class="button-row text-end">
+      <button type="button" class="dt-button dt-rocedes" (click)="modal1.hide()">
+        <fa-icon [icon]="['fas', 'broom']" class="fa-lg"></fa-icon> Close
+      </button>
+    </div>
+  </ng-container>
+</app-modal>

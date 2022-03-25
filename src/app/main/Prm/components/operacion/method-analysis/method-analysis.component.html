@@ -1,0 +1,615 @@
+
+
+<div >
+	<div class="container">
+		<div class="col-12">
+			<div class="button-row text-center">
+				<button type="button" [disabled]="this.Editar" class="btn btn-outline-primary" (click)="Nuevo()"><fa-icon [icon]="['fas', 'plus']" class="fa-lg"></fa-icon> New</button>
+				<button type="button" [disabled]="val.ValForm.invalid || !this.Editar" class="btn btn-outline-success" (click)="Exportar()"><fa-icon [icon]="['fas', 'file-excel']" class="fa-lg" style="color:green"></fa-icon> Exportar</button>
+				<button type="button" [disabled]="(val.ValForm.invalid || !this.Editar) || bol_Guardando"  class="btn btn-outline-success"  (click)="Guardar()" ><fa-icon [icon]="['fas', 'save']" class="fa-lg"></fa-icon> Save</button>
+				<button type="button"  class="btn btn-outline-secondary" (click)="Limpiar()"><fa-icon [icon]="['fas', 'broom']" class="fa-lg"></fa-icon> Cancel</button>
+			</div>
+		</div>
+	</div>
+
+	<div class="row col-12" id="from-method-analisys">
+		<div class="col-sm-12 col-md-5 col-lg-5">
+			<div class="franja"><p>{{str_Codigo}}</p></div>
+			<p><b>Campos marcados con (<b style="color: red;">*</b>) son requeridos.</b></p>
+			<div class="mat-elevation-z8">
+				
+                <form class="form"  [formGroup]="val.ValForm" novalidate>
+				<table mat-table [dataSource]="dataSource_parametros_method_analisys" Id="tabla-parametros-method-analisys">
+
+
+					<ng-container matColumnDef="Index">
+						<th mat-header-cell *matHeaderCellDef> No. </th>
+						<td mat-cell *matCellDef="let element; let j = index" style="color:#1b364c; font-weight: bold;"> {{j+1}} </td>
+					</ng-container>
+
+					
+					<ng-container matColumnDef="Parametro">
+						<th mat-header-cell *matHeaderCellDef></th>
+						<td mat-cell *matCellDef="let element"> {{element.Parametro}} </td>
+					</ng-container>
+
+					<ng-container matColumnDef="Valor">
+						<th mat-header-cell *matHeaderCellDef></th>
+
+						<td mat-cell *matCellDef="let element; let i = index">
+
+
+							
+							<mat-form-field floatLabel="never" *ngIf="element.Index == 1">
+								<input matInput formControlName="txt_method_analisys_user"  [value]="element.Valor" [(ngModel)]="element.Valor" style="color:blue;">
+							</mat-form-field>
+
+							<mat-form-field floatLabel="never" *ngIf="element.Index == 2">
+								<input matInput formControlName="txt_method_analisys_Operacion_name"  [value]="element.Valor" [(ngModel)]="element.Valor"
+								(keydown)="cellChanged_Param($event, element.Index)">
+								<mat-error *ngIf="val.ValForm.get('txt_method_analisys_Operacion_name')?.errors?.Regla=='1'">It is <strong>required</strong></mat-error>
+								<mat-error *ngIf="val.ValForm.get('txt_method_analisys_Operacion_name')?.errors?.Regla=='2'">Only positive <strong>number are allowed</strong></mat-error>
+							</mat-form-field>
+
+						
+							<mat-form-field floatLabel="never" *ngIf="element.Index == 3">
+								<input matInput formControlName="txt_method_analisys_rate"  [value]="element.Valor" [(ngModel)]="element.Valor"
+								(keydown)="cellChanged_Param($event, element.Index)">
+								<mat-error *ngIf="val.ValForm.get('txt_method_analisys_rate')?.errors?.Regla=='1'">It is <strong>required</strong></mat-error>
+								<mat-error *ngIf="val.ValForm.get('txt_method_analisys_rate')?.errors?.Regla=='2'">Only positive <strong>number are allowed</strong></mat-error>
+							</mat-form-field>
+
+
+							<mat-form-field floatLabel="never" *ngIf="element.Index == 4">
+								<input matInput formControlName="txt_method_analisys_jornada"  [value]="element.Valor" [(ngModel)]="element.Valor"
+								(keydown)="cellChanged_Param($event, element.Index)">
+								<mat-error *ngIf="val.ValForm.get('txt_method_analisys_jornada')?.errors?.Regla=='1'">It is <strong>required</strong></mat-error>
+								<mat-error *ngIf="val.ValForm.get('txt_method_analisys_jornada')?.errors?.Regla=='2'">Only positive <strong>number are allowed</strong></mat-error>
+							</mat-form-field>
+
+
+
+
+							<mat-form-field floatLabel="never" class="col-method-analisys-search" *ngIf="element.Index == 5">
+								<input matInput type="text" id="txt_method_analisys_manufacturing" formControlName="txt_method_analisys_manufacturing" [matAutocomplete]="auto" class="col-method-analisys-search" (input)="_onSearchChange($event, 'Manufacturing')" 
+								(focusout)="_onFocusOutEvent($event, 'txt_method_analisys_manufacturing')"
+								(keydown)="cellChanged_Param($event, element.Index)">
+								<mat-autocomplete #auto="matAutocomplete" [displayWith]="MostrarSelec">
+									<mat-option *ngFor="let option of filteredOptions | async" (onSelectionChange)="_onSelectionChange(option, 'Manufacturing', 'txt_method_analisys_manufacturing')" [value]="option">
+										{{option.Valor}}
+									</mat-option>
+								</mat-autocomplete>
+
+								<mat-icon matSuffix>
+									<fa-icon [icon]="['fas', 'search']" class="fa-lg" (click)="AbrirVentana('Manufacturing', 'txt_method_analisys_manufacturing'); modal1.show();"></fa-icon>
+								</mat-icon>
+								<mat-error *ngIf="val.ValForm.get('txt_method_analisys_manufacturing')?.errors?.Regla=='1'">It is <strong>required</strong></mat-error>
+
+							</mat-form-field>
+
+
+
+							<mat-form-field floatLabel="never" class="col-method-analisys-search" *ngIf="element.Index == 6">
+								<input matInput type="text" id="txt_method_analisys_producto" formControlName="txt_method_analisys_producto" [matAutocomplete]="auto" class="col-method-analisys-search" (input)="_onSearchChange($event, 'Product')" 
+								(focusout)="_onFocusOutEvent($event, 'txt_method_analisys_producto')"
+								(keydown)="cellChanged_Param($event, element.Index)">
+								<mat-autocomplete #auto="matAutocomplete" [displayWith]="MostrarSelec">
+									<mat-option *ngFor="let option of filteredOptions | async" (onSelectionChange)="_onSelectionChange(option, 'Product', 'txt_method_analisys_producto')" [value]="option">
+										{{option.Valor}}
+									</mat-option>
+								</mat-autocomplete>
+
+								<mat-icon matSuffix>
+									<fa-icon [icon]="['fas', 'search']" class="fa-lg" (click)="AbrirVentana('Product', 'txt_method_analisys_producto'); modal1.show();"></fa-icon>
+								</mat-icon>
+								<mat-error *ngIf="val.ValForm.get('txt_method_analisys_producto')?.errors?.Regla=='1'">It is <strong>required</strong></mat-error>
+
+							</mat-form-field>
+
+
+							<mat-form-field floatLabel="never" class="col-method-analisys-search" *ngIf="element.Index == 7">
+								<input matInput type="text" id="txt_method_analisys_family" formControlName="txt_method_analisys_family" [matAutocomplete]="auto" class="col-method-analisys-search" (input)="_onSearchChange($event, 'Family')" 
+								(focusout)="_onFocusOutEvent($event, 'txt_method_analisys_family')"
+								(keydown)="cellChanged_Param($event, element.Index)">
+								<mat-autocomplete #auto="matAutocomplete" [displayWith]="MostrarSelec">
+									<mat-option *ngFor="let option of filteredOptions | async" (onSelectionChange)="_onSelectionChange(option, 'Family', 'txt_method_analisys_family')" [value]="option">
+										{{option.Valor}}
+									</mat-option>
+								</mat-autocomplete>
+
+								<mat-icon matSuffix>
+									<fa-icon [icon]="['fas', 'search']" class="fa-lg" (click)="AbrirVentana('Family', 'txt_method_analisys_family'); modal1.show();"></fa-icon>
+								</mat-icon>
+								<mat-error *ngIf="val.ValForm.get('txt_method_analisys_family')?.errors?.Regla=='1'">It is <strong>required</strong></mat-error>
+
+							</mat-form-field>
+
+
+							<mat-form-field floatLabel="never" class="col-method-analisys-search" *ngIf="element.Index == 8">
+								<input matInput type="text" id="txt_method_analisys_secuence" formControlName="txt_method_analisys_secuence" [matAutocomplete]="auto" class="col-method-analisys-search" (input)="_onSearchChange($event, 'Secuence')" 
+								(focusout)="_onFocusOutEvent($event, 'txt_method_analisys_secuence')"
+								(keydown)="cellChanged_Param($event, element.Index)">
+								<mat-autocomplete #auto="matAutocomplete" [displayWith]="MostrarSelec">
+									<mat-option *ngFor="let option of filteredOptions | async" (onSelectionChange)="_onSelectionChange(option, 'Secuence', 'txt_method_analisys_secuence')" [value]="option">
+										{{option.Valor}}
+									</mat-option>
+								</mat-autocomplete>
+
+								<mat-icon matSuffix>
+									<fa-icon [icon]="['fas', 'search']" class="fa-lg" (click)="AbrirVentana('Secuence', 'txt_method_analisys_secuence'); modal1.show();"></fa-icon>
+								</mat-icon>
+								<mat-error *ngIf="val.ValForm.get('txt_method_analisys_secuence')?.errors?.Regla=='1'">It is <strong>required</strong></mat-error>
+
+							</mat-form-field>
+
+
+							<mat-form-field floatLabel="never" class="col-method-analisys-search" *ngIf="element.Index == 9">
+								<input matInput type="text" id="txt_method_analisys_Machinedata" formControlName="txt_method_analisys_Machinedata" [matAutocomplete]="auto" class="col-method-analisys-search" (input)="_onSearchChange($event, 'MachineData')" 
+								(focusout)="_onFocusOutEvent($event, 'txt_method_analisys_Machinedata')"
+								(keydown)="cellChanged_Param($event, element.Index)">
+								<mat-autocomplete #auto="matAutocomplete" [displayWith]="MostrarSelec">
+									<mat-option *ngFor="let option of filteredOptions | async" (onSelectionChange)="_onSelectionChange(option, 'MachineData', 'txt_method_analisys_Machinedata')" [value]="option">
+										{{option.Valor}}
+									</mat-option>
+								</mat-autocomplete>
+
+								<mat-icon matSuffix>
+									<fa-icon [icon]="['fas', 'search']" class="fa-lg" (click)="AbrirVentana('MachineData', 'txt_method_analisys_Machinedata'); modal1.show();"></fa-icon>
+								</mat-icon>
+								<mat-error *ngIf="val.ValForm.get('txt_method_analisys_Machinedata')?.errors?.Regla=='1'">It is <strong>required</strong></mat-error>
+
+							</mat-form-field>
+
+
+							<mat-form-field floatLabel="never" class="col-method-analisys-search" *ngIf="element.Index == 10">
+								<input matInput type="text" id="txt_method_analisys_stitchtype" formControlName="txt_method_analisys_stitchtype" [matAutocomplete]="auto" class="col-method-analisys-search" (input)="_onSearchChange($event, 'StitchType')" 
+								(focusout)="_onFocusOutEvent($event, 'txt_method_analisys_stitchtype')"
+								(keydown)="cellChanged_Param($event, element.Index)">
+								<mat-autocomplete #auto="matAutocomplete" [displayWith]="MostrarSelec">
+									<mat-option *ngFor="let option of filteredOptions | async" (onSelectionChange)="_onSelectionChange(option, 'StitchType', 'txt_method_analisys_stitchtype')" [value]="option">
+										{{option.Valor}}
+									</mat-option>
+								</mat-autocomplete>
+
+								<mat-icon matSuffix>
+									<fa-icon [icon]="['fas', 'search']" class="fa-lg" (click)="AbrirVentana('StitchType', 'txt_method_analisys_stitchtype'); modal1.show();"></fa-icon>
+								</mat-icon>
+								<mat-error *ngIf="val.ValForm.get('txt_method_analisys_stitchtype')?.errors?.Regla=='1'">It is <strong>required</strong></mat-error>
+
+							</mat-form-field>
+
+
+
+							<mat-form-field floatLabel="never" class="col-method-analisys-search" *ngIf="element.Index == 11">
+								<input matInput type="text" id="txt_method_analisys_needle" formControlName="txt_method_analisys_needle" [matAutocomplete]="auto" class="col-method-analisys-search" (input)="_onSearchChange($event, 'Needle')" 
+								(focusout)="_onFocusOutEvent($event, 'txt_method_analisys_needle')"
+								(keydown)="cellChanged_Param($event, element.Index)">
+								<mat-autocomplete #auto="matAutocomplete" [displayWith]="MostrarSelec">
+									<mat-option *ngFor="let option of filteredOptions | async" (onSelectionChange)="_onSelectionChange(option, 'Needle', 'txt_method_analisys_needle')" [value]="option">
+										{{option.Valor}}
+									</mat-option>
+								</mat-autocomplete>
+
+								<mat-icon matSuffix>
+									<fa-icon [icon]="['fas', 'search']" class="fa-lg" (click)="AbrirVentana('Needle', 'txt_method_analisys_needle'); modal1.show();"></fa-icon>
+								</mat-icon>
+								<mat-error *ngIf="val.ValForm.get('txt_method_analisys_needle')?.errors?.Regla=='1'">It is <strong>required</strong></mat-error>
+
+							</mat-form-field>
+
+
+
+							<mat-form-field floatLabel="never" class="col-method-analisys-search" *ngIf="element.Index == 12">
+								<input matInput type="text" id="txt_method_analisys_rpm" formControlName="txt_method_analisys_rpm" [matAutocomplete]="auto" class="col-method-analisys-search" (input)="_onSearchChange($event, 'Rpm')" 
+								(focusout)="_onFocusOutEvent($event, 'txt_method_analisys_rpm')"
+								(keydown)="cellChanged_Param($event, element.Index)">
+								<mat-autocomplete #auto="matAutocomplete" [displayWith]="MostrarSelec">
+									<mat-option *ngFor="let option of filteredOptions | async" (onSelectionChange)="_onSelectionChange(option, 'Rpm', 'txt_method_analisys_rpm')" [value]="option">
+										{{option.Valor}}
+									</mat-option>
+								</mat-autocomplete>
+
+								<mat-icon matSuffix>
+									<fa-icon [icon]="['fas', 'search']" class="fa-lg" (click)="AbrirVentana('Rpm', 'txt_method_analisys_rpm'); modal1.show();"></fa-icon>
+								</mat-icon>
+								<mat-error *ngIf="val.ValForm.get('txt_method_analisys_rpm')?.errors?.Regla=='1'">It is <strong>required</strong></mat-error>
+
+							</mat-form-field>
+
+
+							<mat-form-field floatLabel="never" class="col-method-analisys-search" *ngIf="element.Index == 13">
+								<input matInput type="text" id="txt_method_analisys_stitchinch" formControlName="txt_method_analisys_stitchinch" [matAutocomplete]="auto" class="col-method-analisys-search" (input)="_onSearchChange($event, 'StitchInch')" 
+								(focusout)="_onFocusOutEvent($event, 'txt_method_analisys_stitchinch')"
+								(keydown)="cellChanged_Param($event, element.Index)">
+								<mat-autocomplete #auto="matAutocomplete" [displayWith]="MostrarSelec">
+									<mat-option *ngFor="let option of filteredOptions | async" (onSelectionChange)="_onSelectionChange(option, 'StitchInch', 'txt_method_analisys_stitchinch')" [value]="option">
+										{{option.Valor}}
+									</mat-option>
+								</mat-autocomplete>
+
+								<mat-icon matSuffix>
+									<fa-icon [icon]="['fas', 'search']" class="fa-lg" (click)="AbrirVentana('StitchInch', 'txt_method_analisys_stitchinch'); modal1.show();"></fa-icon>
+								</mat-icon>
+								<mat-error *ngIf="val.ValForm.get('txt_method_analisys_stitchinch')?.errors?.Regla=='1'">It is <strong>required</strong></mat-error>
+
+							</mat-form-field>
+
+
+							<mat-form-field floatLabel="never" class="col-method-analisys-search" *ngIf="element.Index == 14">
+								<input matInput type="text" id="txt_method_analisys_fabrictype" formControlName="txt_method_analisys_fabrictype" [matAutocomplete]="auto" class="col-method-analisys-search" (input)="_onSearchChange($event, 'FabricType')" 
+								(focusout)="_onFocusOutEvent($event, 'txt_method_analisys_fabrictype')"
+								(keydown)="cellChanged_Param($event, element.Index)">
+								<mat-autocomplete #auto="matAutocomplete" [displayWith]="MostrarSelec">
+									<mat-option *ngFor="let option of filteredOptions | async" (onSelectionChange)="_onSelectionChange(option, 'FabricType', 'txt_method_analisys_fabrictype')" [value]="option">
+										{{option.Valor}}
+									</mat-option>
+								</mat-autocomplete>
+
+								<mat-icon matSuffix>
+									<fa-icon [icon]="['fas', 'search']" class="fa-lg" (click)="AbrirVentana('FabricType', 'txt_method_analisys_fabrictype'); modal1.show();"></fa-icon>
+								</mat-icon>
+								<mat-error *ngIf="val.ValForm.get('txt_method_analisys_fabrictype')?.errors?.Regla=='1'">It is <strong>required</strong></mat-error>
+
+							</mat-form-field>
+
+
+							<mat-form-field floatLabel="never" class="col-method-analisys-search" *ngIf="element.Index == 15">
+								<input matInput type="text" id="txt_method_analisys_fabricweight" formControlName="txt_method_analisys_fabricweight" [matAutocomplete]="auto" class="col-method-analisys-search" (input)="_onSearchChange($event, 'FabricWeight')" 
+								(focusout)="_onFocusOutEvent($event, 'txt_method_analisys_fabricweight')"
+								(keydown)="cellChanged_Param($event, element.Index)">
+								<mat-autocomplete #auto="matAutocomplete" [displayWith]="MostrarSelec">
+									<mat-option *ngFor="let option of filteredOptions | async" (onSelectionChange)="_onSelectionChange(option, 'FabricWeight', 'txt_method_analisys_fabricweight')" [value]="option">
+										{{option.Valor}}
+									</mat-option>
+								</mat-autocomplete>
+
+								<mat-icon matSuffix>
+									<fa-icon [icon]="['fas', 'search']" class="fa-lg" (click)="AbrirVentana('FabricWeight', 'txt_method_analisys_fabricweight'); modal1.show();"></fa-icon>
+								</mat-icon>
+								<mat-error *ngIf="val.ValForm.get('txt_method_analisys_fabricweight')?.errors?.Regla=='1'">It is <strong>required</strong></mat-error>
+
+							</mat-form-field>
+
+
+							<mat-form-field floatLabel="never" class="col-method-analisys-search" *ngIf="element.Index == 16">
+								<input matInput type="text" id="txt_method_analisys_caliber" formControlName="txt_method_analisys_caliber" [matAutocomplete]="auto" class="col-method-analisys-search" (input)="_onSearchChange($event, 'Caliber')" 
+								(focusout)="_onFocusOutEvent($event, 'txt_method_analisys_caliber')"
+								(keydown)="cellChanged_Param($event, element.Index)">
+								<mat-autocomplete #auto="matAutocomplete" [displayWith]="MostrarSelec">
+									<mat-option *ngFor="let option of filteredOptions | async" (onSelectionChange)="_onSelectionChange(option, 'Caliber', 'txt_method_analisys_caliber')" [value]="option">
+										{{option.Valor}}
+									</mat-option>
+								</mat-autocomplete>
+
+								<mat-icon matSuffix>
+									<fa-icon [icon]="['fas', 'search']" class="fa-lg" (click)="AbrirVentana('Caliber', 'txt_method_analisys_caliber'); modal1.show();"></fa-icon>
+								</mat-icon>
+								<mat-error *ngIf="val.ValForm.get('txt_method_analisys_caliber')?.errors?.Regla=='1'">It is <strong>required</strong></mat-error>
+
+							</mat-form-field>
+
+
+
+							<mat-form-field floatLabel="never" class="col-method-analisys-search" *ngIf="element.Index == 17">
+								<input matInput type="text" id="txt_method_analisys_feeddog" formControlName="txt_method_analisys_feeddog" [matAutocomplete]="auto" class="col-method-analisys-search" (input)="_onSearchChange($event, 'FeedDog')" 
+								(focusout)="_onFocusOutEvent($event, 'txt_method_analisys_feeddog')"
+								(keydown)="cellChanged_Param($event, element.Index)"
+								[disabled]="str_Machine_Ref == ''">
+								<mat-autocomplete #auto="matAutocomplete" [displayWith]="MostrarSelec">
+									<mat-option *ngFor="let option of filteredOptions | async" (onSelectionChange)="_onSelectionChange(option, 'FeedDog', 'txt_method_analisys_feeddog')" [value]="option">
+										{{option.Valor}}
+									</mat-option>
+								</mat-autocomplete>
+
+								<mat-icon matSuffix>
+									<fa-icon [icon]="['fas', 'search']" class="fa-lg" (click)="AbrirVentana('FeedDog', 'txt_method_analisys_feeddog'); modal1.show();"></fa-icon>
+								</mat-icon>
+								<mat-error *ngIf="val.ValForm.get('txt_method_analisys_feeddog')?.errors?.Regla=='1'">It is <strong>required</strong></mat-error>
+
+							</mat-form-field>
+
+
+							<mat-form-field floatLabel="never" class="col-method-analisys-search" *ngIf="element.Index == 18">
+								<input matInput type="text" id="txt_method_analisys_presserfoot" formControlName="txt_method_analisys_presserfoot" [matAutocomplete]="auto" class="col-method-analisys-search" (input)="_onSearchChange($event, 'PresserFoot')" 
+								(focusout)="_onFocusOutEvent($event, 'txt_method_analisys_presserfoot')"
+								(keydown)="cellChanged_Param($event, element.Index)"
+								[disabled]="str_Machine_Ref == ''">
+								<mat-autocomplete #auto="matAutocomplete" [displayWith]="MostrarSelec">
+									<mat-option *ngFor="let option of filteredOptions | async" (onSelectionChange)="_onSelectionChange(option, 'PresserFoot', 'txt_method_analisys_presserfoot')" [value]="option">
+										{{option.Valor}}
+									</mat-option>
+								</mat-autocomplete>
+
+								<mat-icon matSuffix>
+									<fa-icon [icon]="['fas', 'search']" class="fa-lg" (click)="AbrirVentana('PresserFoot', 'txt_method_analisys_presserfoot'); modal1.show();"></fa-icon>
+								</mat-icon>
+								<mat-error *ngIf="val.ValForm.get('txt_method_analisys_presserfoot')?.errors?.Regla=='1'">It is <strong>required</strong></mat-error>
+
+							</mat-form-field>
+
+
+							<mat-form-field floatLabel="never" class="col-method-analisys-search" *ngIf="element.Index == 19">
+								<input matInput type="text" id="txt_method_analisys_folder" formControlName="txt_method_analisys_folder" [matAutocomplete]="auto" class="col-method-analisys-search" (input)="_onSearchChange($event, 'Folder')" 
+								(focusout)="_onFocusOutEvent($event, 'txt_method_analisys_folder')"
+								(keydown)="cellChanged_Param($event, element.Index)">
+								<mat-autocomplete #auto="matAutocomplete" [displayWith]="MostrarSelec">
+									<mat-option *ngFor="let option of filteredOptions | async" (onSelectionChange)="_onSelectionChange(option, 'Folder', 'txt_method_analisys_folder')" [value]="option">
+										{{option.Valor}}
+									</mat-option>
+								</mat-autocomplete>
+
+								<mat-icon matSuffix>
+									<fa-icon [icon]="['fas', 'search']" class="fa-lg" (click)="AbrirVentana('Folder', 'txt_method_analisys_folder'); modal1.show();"></fa-icon>
+								</mat-icon>
+								<mat-error *ngIf="val.ValForm.get('txt_method_analisys_folder')?.errors?.Regla=='1'">It is <strong>required</strong></mat-error>
+
+							</mat-form-field>
+
+
+							<mat-form-field floatLabel="never" *ngIf="element.Index == 20">
+								<input matInput formControlName="txt_method_analisys_materia1"  [value]="element.Valor" [(ngModel)]="element.Valor"
+								(keydown)="cellChanged_Param($event, element.Index)">
+								<mat-error *ngIf="val.ValForm.get('txt_method_analisys_materia1')?.errors?.Regla=='1'">It is <strong>required</strong></mat-error>
+							</mat-form-field>
+
+							<mat-form-field floatLabel="never" *ngIf="element.Index == 21">
+								<input matInput formControlName="txt_method_analisys_materia2"  [value]="element.Valor" [(ngModel)]="element.Valor"
+								(keydown)="cellChanged_Param($event, element.Index)">
+								<mat-error *ngIf="val.ValForm.get('txt_method_analisys_materia2')?.errors?.Regla=='1'">It is <strong>required</strong></mat-error>
+							</mat-form-field>
+
+							<mat-form-field floatLabel="never" *ngIf="element.Index == 22">
+								<input matInput formControlName="txt_method_analisys_materia3"  [value]="element.Valor" [(ngModel)]="element.Valor"
+								(keydown)="cellChanged_Param($event, element.Index)">
+								<mat-error *ngIf="val.ValForm.get('txt_method_analisys_materia2')?.errors?.Regla=='1'">It is <strong>required</strong></mat-error>
+							</mat-form-field>
+
+
+							
+
+
+						</td>
+					</ng-container>
+
+					
+					<ng-container matColumnDef="Requerido">
+						<th mat-header-cell *matHeaderCellDef></th>
+						<td mat-cell *matCellDef="let element"><b style="color: red;">{{element.Requerido}} </b></td>
+					</ng-container>
+
+
+
+
+					<tr mat-header-row *matHeaderRowDef="displayedColumns_parametros_method_analisys; sticky: false"></tr>
+					<tr mat-row *matRowDef="let row; columns: displayedColumns_parametros_method_analisys;"></tr>
+
+				</table>
+            </form>
+			
+			</div>
+			
+		</div>
+
+		<div class="col-sm-12 col-md-7 col-lg-7">
+
+			<div class="container">
+                <form class="form"  [formGroup]="val.ValForm" novalidate>
+                    <div class="row col-12">
+						<div class="col-sm-12 col-md-6 col-lg-6">
+							<mat-form-field>
+								<mat-label>FIND</mat-label>
+								<input matInput (keyup)="filtrar($event)" placeholder="Find">
+							</mat-form-field>
+						</div>
+	
+						
+							<div class="col-sm-12 col-md-6 col-lg-6">
+								<div class="button-row text-end">
+									<button [disabled]="val.ValForm.invalid" type="button" class="btn btn-outline-secondary" (click)="AgregarFila()"><b>NEW FILE</b> <fa-icon [icon]="['fas', 'plus']" class="fa-2x"></fa-icon></button>
+								</div>
+							</div>
+
+                     
+                    </div>
+                </form>
+				
+			</div>
+
+
+			<div class="mat-elevation-z8" Id="tabla-method-analisys">
+
+
+				<table mat-table [dataSource]="dataSource_method_analisys">
+
+
+					<ng-container matColumnDef="IdDetMethodAnalysis">
+						<th mat-header-cell *matHeaderCellDef> No. </th>
+						<td mat-cell *matCellDef="let element; let j = index" style="color:#1b364c; font-weight: bold;"> <b *ngIf="!element.EsTotal">{{j+1}} </b></td>
+					</ng-container>
+
+
+					<ng-container matColumnDef="Codigo1">
+						<th mat-header-cell *matHeaderCellDef><b>Codigos.</b></th>
+						<td mat-cell *matCellDef="let element" class="col-method-analisys-codigo">
+							<mat-form-field floatLabel="never" class="col-method-analisys-codigo" *ngIf="!element.EsTotal">
+								<input contenteditable="true" (keydown)="cellChanged($event, element, 'Codigo1')" 
+								(change)="onKeyEnter($event, element, 'Codigo1')" 
+								matInput placeholder="" [value]="element.Codigo1" [(ngModel)]="element.Codigo1">
+							</mat-form-field>
+						</td>
+					</ng-container>
+
+					<ng-container matColumnDef="Codigo2">
+						<th mat-header-cell *matHeaderCellDef class="myHeader"></th>
+						<td mat-cell *matCellDef="let element" class="col-method-analisys-codigo">
+							<mat-form-field floatLabel="never" class="col-method-analisys-codigo" *ngIf="!element.EsTotal">
+								<input contenteditable="true" (keydown)="cellChanged($event, element, 'Codigo2')" (change)="onKeyEnter($event, element, 'Codigo2')" matInput placeholder="" [value]="element.Codigo2" [(ngModel)]="element.Codigo2">
+							</mat-form-field>
+						</td>
+					</ng-container>
+
+					<ng-container matColumnDef="Codigo3">
+						<th mat-header-cell *matHeaderCellDef class="myHeader"></th>
+						<td mat-cell *matCellDef="let element" class="col-method-analisys-codigo">
+							<mat-form-field floatLabel="never" class="col-method-analisys-codigo" *ngIf="!element.EsTotal">
+								<input contenteditable="true" (keydown)="cellChanged($event, element, 'Codigo3')" (change)="onKeyEnter($event, element, 'Codigo3')" matInput placeholder="" [value]="element.Codigo3" [(ngModel)]="element.Codigo3">
+							</mat-form-field>
+						</td>
+					</ng-container>
+
+					<ng-container matColumnDef="Codigo4">
+						<th mat-header-cell *matHeaderCellDef class="myHeader"></th>
+						<td mat-cell *matCellDef="let element" class="col-method-analisys-codigo">
+							<mat-form-field floatLabel="never" class="col-method-analisys-codigo" *ngIf="!element.EsTotal">
+								<input contenteditable="true" (keydown)="cellChanged($event, element, 'Codigo4')" (change)="onKeyEnter($event, element, 'Codigo4')" matInput placeholder="" [value]="element.Codigo4" [(ngModel)]="element.Codigo4">
+							</mat-form-field>
+						</td>
+					</ng-container>
+
+					<ng-container matColumnDef="Descripcion">
+						<th mat-header-cell *matHeaderCellDef class="myHeader"><b>Descripcion de Elementos.</b></th>
+						<td mat-cell *matCellDef="let element" class="col-method-analisys-descripcion" >
+							<mat-form-field floatLabel="never"  class="col-method-analisys-descripcion" *ngIf="!element.EsTotal">
+								<input matInput (keydown)="cellChanged($event, element, 'Descripcion')" [value]="element.Descripcion" [(ngModel)]="element.Descripcion">
+							</mat-form-field>
+							<b *ngIf="element.EsTotal"> {{element.Descripcion}} </b>
+						</td>
+						
+					</ng-container>
+
+					<ng-container matColumnDef="Freq">
+						<th mat-header-cell *matHeaderCellDef class="myHeader"><b>Freq.</b></th>
+						<td mat-cell *matCellDef="let element" class="col-method-analisys-num">
+							<mat-form-field floatLabel="never"  class="col-method-analisys-num" *ngIf="!element.EsTotal">
+								<input matInput (keydown)="cellChanged($event, element, 'Freq')" (change)="onKeyEnter($event, element, 'Freq')" [value]="element.Freq" [(ngModel)]="element.Freq">
+							</mat-form-field>
+						</td>
+					</ng-container>
+
+
+					<ng-container matColumnDef="Tmus">
+						<th mat-header-cell *matHeaderCellDef class="myHeader2"><b>Tmu's.</b></th>
+						<td [ngStyle]="{'font-weight':element.EsTotal ? 'bold' : 'normal'}" mat-cell *matCellDef="let element" class="col-method-analisys-resultado"> {{element.Tmus | number : '1.2-2'}} </td>
+					</ng-container>
+
+					<ng-container matColumnDef="Sec" class="myHeader2">
+						<th mat-header-cell *matHeaderCellDef class="myHeader"><b>Sec.</b></th>
+						<td [ngStyle]="{'font-weight':element.EsTotal ? 'bold' : 'normal'}" mat-cell *matCellDef="let element" class="col-method-analisys-resultado"> {{element.Sec | number : '1.2-2'}} </td>
+					</ng-container>
+
+					<ng-container matColumnDef="Sam" class="myHeader2">
+						<th mat-header-cell *matHeaderCellDef><b>SAM</b></th>
+						<td [ngStyle]="{'font-weight':element.EsTotal ? 'bold' : 'normal'}" mat-cell *matCellDef="let element" class="col-method-analisys-resultado"> {{element.Sam | number : '1.4-4'}} </td>
+					</ng-container>
+
+					<ng-container matColumnDef="Eliminar">
+
+						<th mat-header-cell *matHeaderCellDef>
+						</th>
+						<td mat-cell *matCellDef="let element" >
+							<a href="#" (click)="clickRow(element)" *ngIf="!element.EsTotal">
+								<fa-icon [icon]="['fas', 'trash-alt']" class="fa-2x" style="color:red"></fa-icon>
+							</a>
+						</td>
+					</ng-container>
+
+
+
+					<tr mat-header-row *matHeaderRowDef="displayedColumns_method_analisys; sticky: false"></tr>
+					<tr mat-row [class.demo-row-is-clicked]="clickedRows.has(row)" *matRowDef="let row; columns: displayedColumns_method_analisys;"></tr>
+
+
+				</table>
+
+			</div>
+
+		</div>
+	</div>
+
+
+
+	
+</div>
+
+	
+
+<app-modal #modal1 class="panel-demo1" [maximizable]="true" [backdrop]="true">
+    <ng-container class="app-modal-header"></ng-container>
+    <ng-container class="app-modal-body">
+
+		<div class="container">
+			<div class="row">
+		
+				<div class="col-sm-12 col-md-4 col-md-6">
+					<mat-form-field>
+						<mat-label>Find</mat-label>
+						<input appAutofocus matInput id="filtro_ventana" (keyup)="filtrarVentana($event)" placeholder="Find">
+					</mat-form-field>
+				</div>
+		
+		
+			</div>
+		</div>
+		
+		<div class="mat-elevation-z8" Id="tabla-filtro">
+		
+		
+			<table mat-table [dataSource]="dataSource_Filtro" matSort (matSortChange)="annSort($event)">
+		
+		
+				<ng-container matColumnDef="Id">
+					<th mat-header-cell *matHeaderCellDef> No. </th>
+					<td mat-cell *matCellDef="let element; let j = index" style="color:#1b364c; font-weight: bold;"> {{j+1}}
+					</td>
+				</ng-container>
+		
+		
+				<ng-container matColumnDef="Valor">
+					<th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Valor">
+						Descripcion.
+					</th>
+					<td mat-cell *matCellDef="let element"> {{element.Valor}} </td>
+				</ng-container>
+		
+		
+		
+				<ng-container matColumnDef="Code">
+					<th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Code">
+						Code.
+					</th>
+					<td mat-cell *matCellDef="let element"> {{element.Code}} </td>
+				</ng-container>
+
+
+				<ng-container matColumnDef="Seleccionar">
+					<th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Seleccionar">
+						Seleccionar ?.
+					</th>
+					<td mat-cell *matCellDef="let element"> 
+					  <mat-checkbox  placeholder="" [(ngModel)]="element.Seleccionar" [(ngModel)]="element.Seleccionar"  (click)="Select(element)"   color="accent">
+					  </mat-checkbox>
+					</td>
+				  </ng-container>
+		
+		
+		
+				<tr mat-header-row *matHeaderRowDef="displayedColumns_Filtro"></tr>
+				<tr mat-row *matRowDef="let row; columns: displayedColumns_Filtro;">
+				</tr>
+		
+			</table>
+			<mat-paginator [pageSizeOptions]="[25, 50, 100]" showFirstLastButtons></mat-paginator>
+		</div>
+			
+			
+			
+	
+    </ng-container>
+    <ng-container class="app-modal-footer">
+      <div class="button-row text-end">
+        <button type="button" class="dt-button dt-rocedes" (click)="modal1.hide()">
+          <fa-icon [icon]="['fas', 'broom']" class="fa-lg"></fa-icon> Close
+        </button>
+      </div>
+    </ng-container>
+  </app-modal>

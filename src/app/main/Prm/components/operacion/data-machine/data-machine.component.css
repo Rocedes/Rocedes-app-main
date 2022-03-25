@@ -1,0 +1,14 @@
+#divOperacion-frm-data-machine{
+    width: 1000px;
+    margin: auto;
+    background-color: white;
+}
+
+#divOperacion-frm-data-machine-registros{
+    margin: auto;
+    background-color: white;
+}
+
+#tabla-data-machine{
+    max-height: 600px;
+}

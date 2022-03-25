@@ -1,0 +1,51 @@
+#tabla-planning{
+    max-height: 600px;
+}
+
+
+:host ::ng-deep .mat-sort-header-container {
+    display: flex;
+    justify-content: center;
+}
+
+
+.mat-header-cell{
+    color: #1C394F;
+    font-weight: bold;
+}
+
+
+
+#tabla-planning tr td{
+    flex: 0 0 25% !important;
+    min-width: 150px !important;
+    text-align: center;
+}
+
+#tabla-planning td{
+    font-size: 12px;
+}
+
+#tabla-planning tr{
+    overflow: hidden;
+    height: 25px;
+    white-space: nowrap;
+}
+
+
+#tabla-planning .rejected{
+    font-weight: bold;
+    color: red;
+}
+
+
+.mat-header-row {
+    width: 100%;
+}
+
+.mat-column-Field   {
+    flex: 0 0 25% !important;
+    min-width: 100px !important;
+}
+
+

@@ -1,0 +1,15 @@
+#divOperacion-frm-caliber{
+    width: 600px;
+    margin: auto;
+    background-color: white;
+}
+
+#divOperacion-frm-caliber-registros{
+    width: 800px;
+    margin: auto;
+    background-color: white;
+}
+
+#tabla-caliber{
+    max-height: 600px;
+}

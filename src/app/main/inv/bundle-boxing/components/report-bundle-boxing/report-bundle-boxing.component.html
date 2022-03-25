@@ -1,0 +1,61 @@
+<ng-container *ngIf="str_from == 'ReportBundleBoxing'">
+    <div class="formulario" id="divReportBundleBoxing">
+        <div class="head-form" id="from-encabezado">
+            <div class="from-encabezado-titulo"><p>Bundle Boxing Report</p></div>
+            <div class="from-encabezado-salir"><a href="#" (click)="Cerrar()"><fa-icon [icon]="['fas', 'sign-out-alt']" class="fa-lg" style="color:white"></fa-icon></a></div>
+          </div>
+    
+          <div class="container">
+              <form class="form" [formGroup]="valSeleccion.ValForm"  novalidate>
+                <div class="row">
+                    <mat-form-field class="col-sm-12 col-md-6 col-lg-6" appearance="fill">
+                        <mat-label><b>Corte.</b></mat-label>
+                        <input appAutofocus  matInput type="text" id="txtReport_Box_Corte" 
+                        formControlName="txtReport_Box_Corte"
+                         placehoder="Ingrese No. Corte" 
+                         [matAutocomplete]="auto"
+                        (input)="txtReport_Box_Corte_onSearchChange($event)" (keydown.enter)="Generar()">
+                        <mat-autocomplete #auto="matAutocomplete" [displayWith]="MostrarCorteSelec">
+                            <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                              {{option.Corte}}
+                            </mat-option>
+                          </mat-autocomplete>
+                        <mat-icon matSuffix><fa-icon [icon]="['fas', 'search']" class="fa-lg"></fa-icon></mat-icon>
+                        <mat-error *ngIf="valSeleccion.ValForm.get('txtReport_Box_Corte')?.errors?.Regla=='1'">No Corte <strong>requerido</strong></mat-error>
+                    
+                    </mat-form-field>
+                    <span>Ejemplo: <b>MP350028</b></span>
+                </div>
+    
+                <div class="row">
+                    <div class="col-12">
+                        <div class="button-row text-end">
+                            <button type="button" id="btnReport_Boxin_Generar" class="btn btn-outline-secondary" (click) = "Generar()" *ngIf="!bol_Load else spinBar">Generar 
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+              </form>
+          </div>
+    </div>
+    
+    <app-report-bundle-boxing-tabla></app-report-bundle-boxing-tabla>
+</ng-container>
+
+
+
+
+<!-----------------------------------------------------SPINNER---------------------------------------------------------------->
+
+<ng-template #spinBar>
+    <div class="spinner-wrapper">
+        <mat-progress-spinner class="example-margin" style="float: right" color="primary"mode="indeterminate" [diameter]="30"></mat-progress-spinner>
+    </div>
+</ng-template>
+
+
+    
+
+
+

@@ -1,0 +1,15 @@
+#divOperacion-frm-stitch-type{
+    width: 400px;
+    margin: auto;
+    background-color: white;
+}
+
+#divOperacion-frm-stitch-type-registros{
+    width: 600px;
+    margin: auto;
+    background-color: white;
+}
+
+#tabla-stitch-type{
+    max-height: 600px;
+}

@@ -1,0 +1,12 @@
+#divFlujoCorte{
+    width: 100%;
+    max-width: 800px;
+    margin: auto;
+  }
+
+
+.col-flujo-dato {
+    width: 120px;
+    padding-left: 10px;
+    padding-right: 10px;
+}

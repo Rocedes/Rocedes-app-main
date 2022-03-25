@@ -1,0 +1,170 @@
+
+
+
+<div class="container">
+
+    <div class="formulario" id="divFlujoCorte" *ngIf="this.Open">
+
+        <div class="head-form">
+          <div class="from-encabezado-titulo"><p>FLUJO DE CORTE</p></div>
+          <div class="from-encabezado-salir"><a href="#" (click)="Cerrar()"><fa-icon [icon]="['fas', 'sign-out-alt']" class="fa-lg" style="color:white"></fa-icon></a></div>
+        </div>
+    
+        <div class="container">
+            <form class="form"   [formGroup]="val.ValForm"  novalidate>
+    
+               
+                <div class="row">
+                    <mat-form-field class="col-sm-12" appearance="fill">
+                        <mat-label><b>BUCAR</b></mat-label>
+                        <input appAutofocus  matInput type="text" id="txt_flujo_Estilo" 
+                        formControlName="txt_flujo_Estilo"
+                         placehoder="Ingrese el estilo" 
+                         [matAutocomplete]="auto"
+                        (input)="txt_flujo_Estilo_onSearchChange($event)" (focusout)="txt_flujo_Estilo_onFocusOutEvent($event)"  (keydown.enter)="onKeyEnter($event)">
+                        <mat-autocomplete #auto="matAutocomplete" [displayWith]="MostrarSelec">
+                            <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                              {{option.Componente}}
+                            </mat-option>
+                          </mat-autocomplete>
+                        <mat-icon matSuffix><fa-icon [icon]="['fas', 'search']" class="fa-lg"></fa-icon></mat-icon>
+                        <mat-error *ngIf="val.ValForm.get('txt_flujo_Estilo')?.errors?.Regla=='1'">Estilo es <strong>requerido</strong></mat-error>
+                        
+                    </mat-form-field>
+    
+    
+                </div>
+
+                 
+                <div class="row">
+                    <div class="col-sm-12">
+                        <mat-label><b>Estilo: </b><b style="color: blue;">{{str_Estilo}}</b></mat-label>
+                    </div>
+                </div>
+
+
+                
+                <div class="row">
+                    <mat-form-field class="col-sm-12 col-md-6 col-lg-6">
+                        <mat-label><b>CORTE</b></mat-label>
+                        <input matInput type="text" id="txt_flujo_Corte" formControlName="txt_flujo_Corte" placeholder="" (keydown.enter)="onKeyEnter($event)">
+                        <mat-error *ngIf="val.ValForm.get('txt_flujo_Corte')?.errors?.Regla=='1'">Corte es <strong>requerido</strong></mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field class="col-sm-12 col-md-6 col-lg-6">
+                        <mat-label><b>SECCION</b></mat-label>
+                        <input  matInput type="text" id="txt_flujo_Seccion" formControlName="txt_flujo_Seccion" placeholder="" (keydown.enter)="onKeyEnter($event)">
+                        <mat-error *ngIf="val.ValForm.get('txt_flujo_Seccion')?.errors?.Regla=='1'">Seccion es <strong>requerido</strong></mat-error>
+                    </mat-form-field>
+                </div>
+
+
+                <div class="row">
+                    <mat-form-field class="col-sm-12 col-md-6 col-lg-6">
+                        <mat-label><b>JORNADA LABORAL</b></mat-label>
+                        <input matInput type="text" id="txt_flujo_Jornada" formControlName="txt_flujo_Jornada" placeholder="" (keydown.enter)="onKeyEnter($event)">
+                        <mat-error *ngIf="val.ValForm.get('txt_flujo_Jornada')?.errors?.Regla=='1'">Jornada Laboral es <strong>requerido</strong></mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field class="col-sm-12 col-md-6 col-lg-6">
+                        <mat-label><b>PAGO AL 100%</b></mat-label>
+                        <input  matInput type="text" id="txt_flujo_Pago" formControlName="txt_flujo_Pago" placeholder="" (keydown.enter)="onKeyEnter($event)" >
+                        <mat-error *ngIf="val.ValForm.get('txt_flujo_Pago')?.errors?.Regla=='1'">Pago es <strong>requerido</strong></mat-error>
+                    </mat-form-field>
+                </div>
+    
+                <div class="row">
+                    <div class="col-12">
+                        <div class="button-row text-end">
+                            <button type="button" class="btn btn-outline-secondary" (click)="Calcular()"><b>GENERAR </b><fa-icon [icon]="['fas', 'file-excel']" class="fa-2x" style="color:green"></fa-icon></button>
+                        </div>
+                    </div>
+                </div>
+    
+            </form>
+        </div>
+    
+    </div>
+
+    <br>
+
+    <div class="mat-elevation-z8" id="tbl-flujo-corte">
+
+
+        <table  mat-table [dataSource]="dataSourceFlujoCorte">
+    
+    
+    
+        
+    
+    
+        <ng-container matColumnDef="Operacion">
+            <th mat-header-cell *matHeaderCellDef> </th>
+            <td mat-cell *matCellDef="let element; let i = index" 
+                [attr.rowspan]="getRowSpan('Operacion', i)"
+                [style.display]="getRowSpan('Operacion', i) ? '' : 'none'"> {{element.Operacion}} </td>
+        </ng-container>
+    
+    
+        
+        
+        <ng-container matColumnDef="Descripcion">
+            <th mat-header-cell  *matHeaderCellDef></th>
+            <td mat-cell  *matCellDef="let element" > {{element.Descripcion}} </td>
+        </ng-container>
+    
+    
+        <ng-container matColumnDef="Manual">
+            <th class="myHeader"  mat-header-cell *matHeaderCellDef>
+                Capa Manual.
+            </th>
+            <td mat-cell *matCellDef="let element"> 
+                <mat-form-field floatLabel="never" class="col-flujo-dato" >
+                    <input matInput placeholder="" [value]="element.Manual" [(ngModel)]="element.Manual">
+                </mat-form-field>
+            </td>
+        </ng-container>
+
+  
+        <ng-container matColumnDef="Doble">
+            <th class="myHeader"  mat-header-cell *matHeaderCellDef>
+                Capa Doble.
+            </th>
+            <td mat-cell *matCellDef="let element" > 
+                <mat-form-field floatLabel="never" class="col-flujo-dato" >
+                    <input matInput placeholder="" [value]="element.Doble" [(ngModel)]="element.Doble">
+                </mat-form-field>
+            </td>
+        </ng-container>
+
+    
+        <ng-container matColumnDef="Sencilla">
+            <th class="myHeader"  mat-header-cell *matHeaderCellDef>
+                Capa Sencilla.
+            </th>
+            <td mat-cell *matCellDef="let element" > 
+                <mat-form-field floatLabel="never" class="col-flujo-dato">
+                    <input matInput placeholder="" [value]="element.Sencilla" [(ngModel)]="element.Sencilla">
+                </mat-form-field>
+            </td>
+        </ng-container>
+
+
+
+    
+    
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr
+        mat-row  [class.demo-row-is-clicked]="clickedRows.has(row)" *matRowDef="let row; columns: displayedColumns;"></tr>
+        
+    </table>
+    </div>
+    
+    
+    
+</div>
+
+
+<div class="border-top border-bottom" #ContainerTiempo>
+  <div appOpenClose></div>
+</div>

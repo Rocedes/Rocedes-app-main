@@ -1,0 +1,15 @@
+#divOperacion-frm-feedog{
+    width: 600px;
+    margin: auto;
+    background-color: white;
+}
+
+#divOperacion-frm-feedog-registros{
+    width: 800px;
+    margin: auto;
+    background-color: white;
+}
+
+#tabla-feedog{
+    max-height: 600px;
+}

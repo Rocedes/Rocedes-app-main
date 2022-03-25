@@ -1,0 +1,17 @@
+.myHeader, .myCell{
+    flex: 0 0 100px;
+    white-space: nowrap;
+  }
+
+
+  .col-foleo-dato-num {
+    width: 80px;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+
+  #tbl-foleo-factor-datos{
+    max-height: 600px;
+  }
+  
