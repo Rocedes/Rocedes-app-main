@@ -28,7 +28,7 @@ export class MatrizOperacionComponent implements OnInit {
 
   displayedColumns: string[] = ["IdMethodAnalysis", "Codigo", "Sam", "Precio", "Manufacturing", "Producto", "Family", "Operacion",
    "Secuence", "StitchInch", "DataMachine", "Machine", "TypeStitch", "Rpm", "Tela", "Ounce", "NeedleType", "Caliber", "FeedDog",
-   "Tela", "Folder", "MateriaPrima_1", "MateriaPrima_2", "MateriaPrima_3", "Usuario", "FechaRegistro",
+   "Folder", "MateriaPrima_1", "MateriaPrima_2", "MateriaPrima_3", "Usuario", "FechaRegistro",
    "PresserFoot", "UsuarioModifica", "FechaModifica", "Editar", "Eliminar"];
   dataSource = new MatTableDataSource(ELEMENT_DATA_OPERATION_MATIX_DATA);
   clickedRows = new Set<IMethodAnalysis>();
