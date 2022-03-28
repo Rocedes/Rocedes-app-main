@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
-import { map, Observable, shareReplay, startWith } from 'rxjs';
+import { ignoreElements, map, Observable, shareReplay, startWith } from 'rxjs';
 import { Validacion } from 'src/app/main/shared/class/Validacion/validacion';
 import { ConfirmarContinuarComponent } from 'src/app/main/shared/dialogo/confirmar-continuar/confirmar-continuar.component';
 import { ConfirmarEliminarComponent } from 'src/app/main/shared/dialogo/confirmar-eliminar/confirmar-eliminar.component';
@@ -253,7 +253,7 @@ _onFocusOutEvent(event: any, id : string) :void
 
       if(_Opcion == undefined || _Opcion == null){
         this.val.ValForm.get(id)?.setValue(undefined);
-        return;
+        //return;
       }
       
       
@@ -261,7 +261,7 @@ _onFocusOutEvent(event: any, id : string) :void
     
   }
 
-  if(_Opcion == undefined || _Opcion == null) return;
+  //if(_Opcion == undefined || _Opcion == null) return;
 
   switch(id)
   {
@@ -775,7 +775,7 @@ LlenarParametroFiltro(_Opcion: Filtro, tipo : string, _id : string)
 
   if(index == -1)
   {
-    this.optionLevel.push({IdCaja: _id, Id : _Opcion.Id,  Valor : _Opcion.Valor, Otros : _Opcion.Otros, Code : _Opcion.Code})
+    if(_Opcion != null) this.optionLevel.push({IdCaja: _id, Id : _Opcion.Id,  Valor : _Opcion.Valor, Otros : _Opcion.Otros, Code : _Opcion.Code})
   }
   else
   {
@@ -795,7 +795,7 @@ LlenarParametroFiltro(_Opcion: Filtro, tipo : string, _id : string)
   }
 
   index = this.optionLevel.findIndex( f => f.IdCaja == _id);
-  this.val.ValForm.get(_id)?.setValue(this.optionLevel[index]);
+  if(index != -1) this.val.ValForm.get(_id)?.setValue(this.optionLevel[index]);
 
 
 
